@@ -37,11 +37,11 @@ internal object TransferTimeline {
 internal fun phase(progress: Float, start: Float, end: Float): Float =
     ((progress - start) / (end - start)).coerceIn(0f, 1f)
 
-private fun lerp(a: Float, b: Float, t: Float) = a + (b - a) * t
+internal fun lerp(a: Float, b: Float, t: Float) = a + (b - a) * t
 
-private fun easeIn(t: Float) = t * t * t
-private fun easeOut(t: Float) = 1f - (1f - t).pow(3)
-private fun easeInOut(t: Float) = if (t < 0.5f) 4f * t * t * t else 1f - (-2f * t + 2f).pow(3) / 2f
+internal fun easeIn(t: Float) = t * t * t
+internal fun easeOut(t: Float) = 1f - (1f - t).pow(3)
+internal fun easeInOut(t: Float) = if (t < 0.5f) 4f * t * t * t else 1f - (-2f * t + 2f).pow(3) / 2f
 private fun easeOutBack(t: Float): Float {
     val c1 = 1.70158f
     val c3 = c1 + 1f

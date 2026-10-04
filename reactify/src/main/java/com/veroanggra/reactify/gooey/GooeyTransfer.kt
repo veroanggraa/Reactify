@@ -305,4 +305,4 @@ private fun Modifier.animatePlacement(): Modifier {
     }.offset { offset.value.round() }
 }
 
-private fun LayoutCoordinates.rootBounds(): Rect = Rect(positionInRoot(), size.toSize())
+internal fun LayoutCoordinates.rootBounds(): Rect = Rect(positionInRoot(), size.toSize())
