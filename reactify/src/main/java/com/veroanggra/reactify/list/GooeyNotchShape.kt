@@ -1,4 +1,4 @@
-package com.veroanggra.reactify.gooey
+package com.veroanggra.reactify.list
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.geometry.CornerRadius
@@ -15,6 +15,10 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.veroanggra.reactify.gooey.Blob
+import com.veroanggra.reactify.gooey.ContourTracer
+import com.veroanggra.reactify.gooey.GooeyField
+import com.veroanggra.reactify.gooey.addSmoothLoop
 import kotlin.math.max
 
 /**

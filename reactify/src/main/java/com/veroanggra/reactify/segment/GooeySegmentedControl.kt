@@ -1,4 +1,4 @@
-package com.veroanggra.reactify.gooey
+package com.veroanggra.reactify.segment
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec
@@ -23,34 +23,41 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.veroanggra.reactify.gooey.Blob
+import com.veroanggra.reactify.gooey.GooeyRenderer
+import com.veroanggra.reactify.gooey.GooeyRenderers
+import com.veroanggra.reactify.gooey.GooeyScene
+import com.veroanggra.reactify.gooey.lerpRect
+import com.veroanggra.reactify.gooey.slidingIndicatorBlobs
+import com.veroanggra.reactify.list.rootBounds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-public object GooeyNavIndicatorDefaults {
-    /** Drives the transition; the grow/shrink/break shape itself lives in [navIndicatorBlobs]. */
-    public val animationSpec: AnimationSpec<Float> = tween(durationMillis = 450, easing = LinearEasing)
+public object GooeySegmentedControlDefaults {
+    /** Drives the transition; the grow/shrink/break shape itself lives in [slidingIndicatorBlobs]. */
+    public val animationSpec: AnimationSpec<Float> = tween(durationMillis = 400, easing = LinearEasing)
 
     /** Blend distance for merging the old pill, new pill and bridge into one liquid shape. */
-    public val Smoothness: Dp = 18.dp
+    public val Smoothness: Dp = 14.dp
 }
 
 @Composable
-public fun rememberGooeyNavIndicatorState(
+public fun rememberGooeySegmentedControlState(
     selectedIndex: Int,
-    animationSpec: AnimationSpec<Float> = GooeyNavIndicatorDefaults.animationSpec,
-): GooeyNavIndicatorState {
+    animationSpec: AnimationSpec<Float> = GooeySegmentedControlDefaults.animationSpec,
+): GooeySegmentedControlState {
     val scope = rememberCoroutineScope()
-    return remember(scope) { GooeyNavIndicatorState(selectedIndex, scope) }.also { it.animationSpec = animationSpec }
+    return remember(scope) { GooeySegmentedControlState(selectedIndex, scope) }.also { it.animationSpec = animationSpec }
 }
 
 /**
- * Tracks which item inside a [GooeyNavIndicatorHost] is selected and animates a gooey bridge
- * between registered item bounds, the same grow/break mechanics as the list-to-card transfer.
- * Call [select] from each item's click handler.
+ * Tracks which option inside a [GooeySegmentedControlHost] is selected and animates a gooey
+ * bridge between registered option bounds, the same liquid slide as the bottom-nav indicator.
+ * Call [select] from each option's click handler.
  */
 @Stable
-public class GooeyNavIndicatorState internal constructor(initialIndex: Int, private val scope: CoroutineScope) {
-    internal var animationSpec: AnimationSpec<Float> = GooeyNavIndicatorDefaults.animationSpec
+public class GooeySegmentedControlState internal constructor(initialIndex: Int, private val scope: CoroutineScope) {
+    internal var animationSpec: AnimationSpec<Float> = GooeySegmentedControlDefaults.animationSpec
     internal var hostBounds: Rect by mutableStateOf(Rect.Zero)
 
     public var selectedIndex: Int by mutableStateOf(initialIndex)
@@ -64,7 +71,7 @@ public class GooeyNavIndicatorState internal constructor(initialIndex: Int, priv
 
     internal val hasIndicator: Boolean get() = placed
 
-    /** Moves the indicator to [index]. A transition already in flight retargets from where it is now. */
+    /** Moves the thumb to [index]. A transition already in flight retargets from where it is now. */
     public fun select(index: Int) {
         if (index == selectedIndex) return
         val target = itemBounds[index] ?: return
@@ -88,24 +95,31 @@ public class GooeyNavIndicatorState internal constructor(initialIndex: Int, priv
 
     internal fun blobs(color: Color, cornerRadius: Float?, origin: Offset): List<Blob> {
         val radius = cornerRadius ?: (to.height / 2f)
-        return navIndicatorBlobs(progress.value, from.translate(-origin), to.translate(-origin), radius, color)
+        return slidingIndicatorBlobs(
+            progress.value,
+            from.translate(-origin),
+            to.translate(-origin),
+            radius,
+            color,
+        )
     }
 }
 
 /**
- * Draws a gooey indicator behind [content], bridging between whichever items call
- * [Modifier.gooeyNavItem] as [state]'s selection changes. Wrap a navigation bar row with this;
- * items report their own bounds and call [GooeyNavIndicatorState.select] on click.
+ * Draws a gooey thumb behind [content], bridging between whichever options call
+ * [gooeySegmentItem] as [state]'s selection changes. Wrap a row of options with this; options
+ * report their own bounds and call [GooeySegmentedControlState.select] on click. Pass a
+ * `Modifier.background(...)` to draw a track behind the whole control.
  *
- * @param cornerRadius corner radius of the indicator pill; null draws a stadium shape (half height).
+ * @param cornerRadius corner radius of the thumb; null draws a stadium shape (half height).
  */
 @Composable
-public fun GooeyNavIndicatorHost(
-    state: GooeyNavIndicatorState,
+public fun GooeySegmentedControlHost(
+    state: GooeySegmentedControlState,
     color: Color,
     modifier: Modifier = Modifier,
     cornerRadius: Dp? = null,
-    smoothness: Dp = GooeyNavIndicatorDefaults.Smoothness,
+    smoothness: Dp = GooeySegmentedControlDefaults.Smoothness,
     renderer: GooeyRenderer = remember { GooeyRenderers.auto() },
     content: @Composable BoxScope.() -> Unit,
 ) {
@@ -126,6 +140,6 @@ public fun GooeyNavIndicatorHost(
     }
 }
 
-/** Reports this item's bounds to [state] at [index]; pair with `onClick = { state.select(index) }`. */
-public fun Modifier.gooeyNavItem(state: GooeyNavIndicatorState, index: Int): Modifier =
+/** Reports this option's bounds to [state] at [index]; pair with `onClick = { state.select(index) }`. */
+public fun Modifier.gooeySegmentItem(state: GooeySegmentedControlState, index: Int): Modifier =
     onGloballyPositioned { state.registerBounds(index, it.rootBounds()) }

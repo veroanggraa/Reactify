@@ -18,11 +18,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.veroanggra.reactify.gooey.GooeyNavIndicatorHost
+import com.veroanggra.reactify.navbar.GooeyNavIndicatorHost
 import com.veroanggra.reactify.gooey.GooeyRenderer
 import com.veroanggra.reactify.gooey.GooeyRenderers
-import com.veroanggra.reactify.gooey.gooeyNavItem
-import com.veroanggra.reactify.gooey.rememberGooeyNavIndicatorState
+import com.veroanggra.reactify.navbar.gooeyNavItem
+import com.veroanggra.reactify.navbar.rememberGooeyNavIndicatorState
 
 private data class NavTab(val emoji: String, val label: String, val color: Color)
 

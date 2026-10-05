@@ -1,4 +1,4 @@
-package com.veroanggra.reactify.gooey
+package com.veroanggra.reactify.list
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
@@ -50,6 +50,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.toSize
+import com.veroanggra.reactify.gooey.GooeyRenderer
+import com.veroanggra.reactify.gooey.GooeyRenderers
 import kotlin.math.roundToInt
 
 /**

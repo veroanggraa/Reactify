@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import com.veroanggra.reactify.gooey.GooeyRenderers
 import com.veroanggra.reactify.ui.theme.ReactifyTheme
 
-private enum class Demo { List, BottomNav }
+private enum class Demo { List, BottomNav, Segmented }
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,13 +41,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             ReactifyTheme {
                 var demo by remember {
-                    val initial = if (intent.getStringExtra("screen") == "nav") Demo.BottomNav else Demo.List
+                    val initial = when (intent.getStringExtra("screen")) {
+                        "nav" -> Demo.BottomNav
+                        "segment" -> Demo.Segmented
+                        else -> Demo.List
+                    }
                     mutableStateOf(initial)
                 }
                 Box(Modifier.fillMaxSize()) {
                     when (demo) {
                         Demo.List -> InviteFriendsScreen(renderer = renderer)
                         Demo.BottomNav -> BottomNavDemoScreen(renderer = renderer)
+                        Demo.Segmented -> SegmentedControlDemoScreen(renderer = renderer)
                     }
                     DemoSwitcher(
                         selected = demo,
@@ -81,7 +86,11 @@ private fun DemoSwitcher(selected: Demo, onSelect: (Demo) -> Unit, modifier: Mod
                     .padding(horizontal = 14.dp, vertical = 8.dp),
             ) {
                 Text(
-                    text = if (demo == Demo.List) "List" else "Bottom Nav",
+                    text = when (demo) {
+                        Demo.List -> "List"
+                        Demo.BottomNav -> "Bottom Nav"
+                        Demo.Segmented -> "Segmented"
+                    },
                     color = if (isSelected) Color.Black else Color.White,
                     fontSize = 12.sp,
                 )

@@ -3,6 +3,7 @@ package com.veroanggra.reactify.gooey
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import com.veroanggra.reactify.list.shouldCommitDrag
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -58,13 +59,29 @@ class DragTest {
     @Test
     fun cancelsShortSlowOrSidewaysDrags() {
         assertFalse(shouldCommitDrag(anchor, anchor + Offset(0f, -80f), Offset.Zero, target, 2000f))
-        assertFalse(shouldCommitDrag(anchor, anchor + Offset(0f, 80f), Offset(0f, -3000f), target, 2000f))
+        assertFalse(
+            shouldCommitDrag(
+                anchor,
+                anchor + Offset(0f, 80f),
+                Offset(0f, -3000f),
+                target,
+                2000f
+            )
+        )
         assertFalse(shouldCommitDrag(anchor, anchor + Offset(0f, -300f), Offset.Zero, null, 2000f))
     }
 
     @Test
     fun upwardFlingCommitsShortDrag() {
-        assertTrue(shouldCommitDrag(anchor, anchor + Offset(0f, -80f), Offset(0f, -3000f), target, 2000f))
+        assertTrue(
+            shouldCommitDrag(
+                anchor,
+                anchor + Offset(0f, -80f),
+                Offset(0f, -3000f),
+                target,
+                2000f
+            )
+        )
     }
 
     @Test

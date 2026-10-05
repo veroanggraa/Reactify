@@ -6,14 +6,14 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class NavIndicatorBlobsTest {
+class SlidingIndicatorBlobsTest {
 
     private val from = Rect(0f, 0f, 60f, 56f)
     private val to = Rect(200f, 0f, 260f, 56f)
     private val cornerRadius = 28f
     private val midX = (from.center.x + to.center.x) / 2f
 
-    private fun blobsAt(progress: Float) = navIndicatorBlobs(progress, from, to, cornerRadius, Color.Red)
+    private fun blobsAt(progress: Float) = slidingIndicatorBlobs(progress, from, to, cornerRadius, Color.Red)
 
     private fun pills(progress: Float) = blobsAt(progress).filterIsInstance<Blob.RoundRect>()
     private fun bridge(progress: Float) = blobsAt(progress).filterIsInstance<Blob.Capsule>()

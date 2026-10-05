@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.graphicsLayer
-import com.veroanggra.reactify.gooey.GooeyNotchShape
+import com.veroanggra.reactify.list.GooeyNotchShape
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,10 +40,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.veroanggra.reactify.gooey.GooeyRenderer
 import com.veroanggra.reactify.gooey.GooeyRenderers
-import com.veroanggra.reactify.gooey.GooeySource
-import com.veroanggra.reactify.gooey.GooeyTarget
-import com.veroanggra.reactify.gooey.GooeyTransferHost
-import com.veroanggra.reactify.gooey.rememberGooeyTransferState
+import com.veroanggra.reactify.list.GooeySource
+import com.veroanggra.reactify.list.GooeyTarget
+import com.veroanggra.reactify.list.GooeyTransferHost
+import com.veroanggra.reactify.list.rememberGooeyTransferState
 
 private data class Friend(val id: Int, val name: String, val tint: Color)
 

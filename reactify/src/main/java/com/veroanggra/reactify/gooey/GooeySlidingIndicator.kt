@@ -10,7 +10,9 @@ import kotlin.math.min
 import kotlin.math.sin
 
 /**
- * Timeline of a nav-indicator transition, as fractions of progress:
+ * Timeline of a sliding-indicator transition, as fractions of progress. Shared by any feature that
+ * shows a single liquid blob sliding between two registered item rects (a bottom-nav indicator, a
+ * segmented control, and so on):
  * ```
  * 0.00 ─── old pill at full width ─── 0.30
  *               0.00 ── bridge grows ── 0.50
@@ -19,7 +21,7 @@ import kotlin.math.sin
  *                                       0.50 ── bridge breaks & retracts ── 0.95
  * ```
  */
-internal object NavIndicatorTimeline {
+internal object SlidingIndicatorTimeline {
     const val BRIDGE_GROW_END = 0.5f
     const val BREAK_START = 0.5f
     const val BREAK_END = 0.95f
@@ -31,17 +33,17 @@ internal object NavIndicatorTimeline {
 /**
  * Blobs for an indicator sliding from [from] to [to]: the old pill shrinks away while a new one
  * grows at the destination, joined for most of the transition by a bridge that grows then pinches
- * apart — the same grow/break shape as [bridgeBlobs], rotated to a horizontal row of nav items.
+ * apart — the same grow/break shape as [bridgeBlobs], rotated to a horizontal row of items.
  */
-internal fun navIndicatorBlobs(progress: Float, from: Rect, to: Rect, cornerRadius: Float, color: Color): List<Blob> {
-    val oldScale = 1f - easeIn(phase(progress, NavIndicatorTimeline.OLD_SHRINK_START, 1f))
-    val newScale = easeOut(phase(progress, NavIndicatorTimeline.NEW_GROW_START, NavIndicatorTimeline.NEW_GROW_END))
+internal fun slidingIndicatorBlobs(progress: Float, from: Rect, to: Rect, cornerRadius: Float, color: Color): List<Blob> {
+    val oldScale = 1f - easeIn(phase(progress, SlidingIndicatorTimeline.OLD_SHRINK_START, 1f))
+    val newScale = easeOut(phase(progress, SlidingIndicatorTimeline.NEW_GROW_START, SlidingIndicatorTimeline.NEW_GROW_END))
     val bridgeWidth = min(from.height, to.height) * 0.9f
 
     return buildList {
         scaledPill(from, oldScale, cornerRadius, color)?.let { add(it) }
         scaledPill(to, newScale, cornerRadius, color)?.let { add(it) }
-        addAll(navBridgeBlobs(progress, from, to, bridgeWidth, color))
+        addAll(slidingBridgeBlobs(progress, from, to, bridgeWidth, color))
     }
 }
 
@@ -61,10 +63,10 @@ private const val BRIDGE_SEGMENTS = 6
  * each still anchored at its own pill but tapering to a free tip that retracts and thins to
  * nothing, like the bridge pinching apart and being drawn back in.
  */
-internal fun navBridgeBlobs(progress: Float, from: Rect, to: Rect, width: Float, color: Color): List<Blob> {
-    val grow = easeOut(phase(progress, 0f, NavIndicatorTimeline.BRIDGE_GROW_END))
+internal fun slidingBridgeBlobs(progress: Float, from: Rect, to: Rect, width: Float, color: Color): List<Blob> {
+    val grow = easeOut(phase(progress, 0f, SlidingIndicatorTimeline.BRIDGE_GROW_END))
     if (grow <= 0f) return emptyList()
-    val broken = phase(progress, NavIndicatorTimeline.BREAK_START, NavIndicatorTimeline.BREAK_END)
+    val broken = phase(progress, SlidingIndicatorTimeline.BREAK_START, SlidingIndicatorTimeline.BREAK_END)
     if (broken >= 1f) return emptyList()
 
     val forward = to.center.x >= from.center.x

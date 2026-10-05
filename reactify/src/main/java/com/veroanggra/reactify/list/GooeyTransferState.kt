@@ -1,4 +1,4 @@
-package com.veroanggra.reactify.gooey
+package com.veroanggra.reactify.list
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec
@@ -21,6 +21,12 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.veroanggra.reactify.gooey.Blob
+import com.veroanggra.reactify.gooey.GooeyScene
+import com.veroanggra.reactify.gooey.TransferTimeline
+import com.veroanggra.reactify.gooey.dragBlobs
+import com.veroanggra.reactify.gooey.tokenRectAt
+import com.veroanggra.reactify.gooey.transferBlobs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlin.math.min
