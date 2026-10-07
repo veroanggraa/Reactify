@@ -1,7 +1,5 @@
 package com.veroanggra.reactify.gooey
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
@@ -18,13 +16,8 @@ public interface GooeyRenderer {
 }
 
 public object GooeyRenderers {
-    /** Best renderer available on this device: AGSL on API 33+, otherwise [path]. */
-    public fun auto(): GooeyRenderer =
-        if (Build.VERSION.SDK_INT >= 33) agsl() else path()
-
-    /** Signed-distance-field renderer built on [android.graphics.RuntimeShader]. */
-    @RequiresApi(33)
-    public fun agsl(): GooeyRenderer = AgslGooeyRenderer()
+    /** Best renderer available on this platform: AGSL on Android API 33+, otherwise [path]. */
+    public fun auto(): GooeyRenderer = defaultGooeyRenderer()
 
     /**
      * CPU fallback that traces the same shapes as [agsl] into a [androidx.compose.ui.graphics.Path].
@@ -35,6 +28,8 @@ public object GooeyRenderers {
     /** Draws every blob on its own without merging them. Useful for debugging layouts. */
     public fun plain(): GooeyRenderer = PlainGooeyRenderer
 }
+
+internal expect fun defaultGooeyRenderer(): GooeyRenderer
 
 private object PlainGooeyRenderer : GooeyRenderer {
     override fun DrawScope.draw(scene: GooeyScene) {
