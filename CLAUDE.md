@@ -4,19 +4,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Reactify is an Android Gradle project (Kotlin, AGP 9.4.1, Kotlin 2.2.10) with two modules:
+Reactify is a Kotlin Multiplatform Gradle project (Kotlin 2.2.10, AGP 9.4.1, Compose Multiplatform
+1.10.3) with two modules:
 
 - `reactify` — the library module (namespace `com.veroanggra.reactify.gooey`). Implements "gooey"
   metaball-style UI: shapes (blobs) that merge, stretch necks, and pinch apart as items animate
   from a source into a target, plus a notch shape for container backgrounds. This is the module
-  that matters architecturally.
-- `app` — a demo app (`com.veroanggra.reactify`) that exercises the library via a single screen,
-  `InviteFriendsScreen.kt` (an "invite friends" sheet where rows transfer avatar tokens into a
-  card at the top).
+  that matters architecturally. It's a KMP library with an `android` target (via the
+  `android-kotlin-multiplatform-library` AGP plugin) and `iosX64`/`iosArm64`/`iosSimulatorArm64`
+  targets. Almost everything — scenes, SDF math, choreography, state, composables, the notch
+  shape — lives in `commonMain`; only the AGSL/`RuntimeShader` GPU renderer is Android-only
+  (`androidMain`). iOS currently falls back to the CPU path renderer (no SKSL renderer yet).
+- `app` — a demo app (`com.veroanggra.reactify`), Android-only (plain `com.android.application`,
+  no iOS target), that exercises the library via a single screen, `InviteFriendsScreen.kt` (an
+  "invite friends" sheet where rows transfer avatar tokens into a card at the top).
 
-`app` depends on `reactify` (`implementation(project(":reactify"))`). The library module has
-`kotlin { explicitApi() }` enabled — every public declaration needs an explicit visibility
-modifier (`public`/`internal`/`private`), and the compiler enforces it.
+`app` depends on `reactify`'s Android target (`implementation(project(":reactify"))`). The library
+module has `kotlin { explicitApi() }` enabled — every public declaration needs an explicit
+visibility modifier (`public`/`internal`/`private`), and the compiler enforces it.
 
 ## Common commands
 
@@ -24,11 +29,15 @@ Run all commands from the repo root via the wrapper (`./gradlew`).
 
 - Build everything: `./gradlew build`
 - Assemble debug APK: `./gradlew :app:assembleDebug`
-- Unit tests (JVM, `reactify/src/test`): `./gradlew :reactify:testDebugUnitTest`
-- Run a single unit test class: `./gradlew :reactify:testDebugUnitTest --tests "com.veroanggra.reactify.gooey.TransferBlobsTest"`
-- Run a single unit test method: `./gradlew :reactify:testDebugUnitTest --tests "com.veroanggra.reactify.gooey.TransferBlobsTest.methodName"`
-- Instrumented tests (device/emulator required, `reactify/src/androidTest`): `./gradlew :reactify:connectedDebugAndroidTest`
-- Lint: `./gradlew :reactify:lint :app:lint`
+- Unit tests (pure JVM/Android, `reactify/src/commonTest`, using `kotlin.test` not JUnit4 so they
+  also compile for iOS): `./gradlew :reactify:testAndroidHostTest`
+- Run a single unit test class: `./gradlew :reactify:testAndroidHostTest --tests "com.veroanggra.reactify.gooey.TransferBlobsTest"`
+- Run a single unit test method: `./gradlew :reactify:testAndroidHostTest --tests "com.veroanggra.reactify.gooey.TransferBlobsTest.methodName"`
+- Sanity-check `commonTest` compiles for iOS (doesn't execute; needs Xcode/simulator for that):
+  `./gradlew :reactify:compileTestKotlinIosArm64 :reactify:compileTestKotlinIosX64 :reactify:compileTestKotlinIosSimulatorArm64`
+- Instrumented tests (device/emulator required, `reactify/src/androidDeviceTest`): `./gradlew :reactify:connectedAndroidDeviceTest`
+- Lint: `./gradlew :app:lint`. The KMP `android-kotlin-multiplatform-library` plugin doesn't wire
+  up a conventional `:reactify:lint` task yet — only `:reactify:lintAnalyzeAndroidHostTest` exists.
 
 There is no root README; this file and inline KDoc are the primary documentation.
 
@@ -38,19 +47,22 @@ The library models each frame as a `GooeyScene` (`GooeyScene.kt`): a list of `Bl
 Circle, Capsule) to merge, a list of cutout `Blob`s to smoothly subtract, and a `smoothness`
 blend radius. Everything downstream is built around rendering and animating that scene.
 
-**Signed-distance-field core.** `GooeyField.kt` is the CPU reference implementation: per-blob
-`sd*` distance functions combined with a polynomial smooth-min (blobs) and smooth-subtraction
-(cutouts). `AgslGooeyRenderer.kt` embeds the *same* math as an AGSL/`RuntimeShader` string
-(`GOOEY_SHADER`) for GPU rendering on API 33+. **These two implementations must be kept in sync
-by hand** — there's no shared source; `RendererParityTest` (instrumented) exists specifically to
-catch drift between them by rasterizing both and comparing contours.
+**Signed-distance-field core.** `GooeyField.kt` (`commonMain`) is the CPU reference implementation:
+per-blob `sd*` distance functions combined with a polynomial smooth-min (blobs) and
+smooth-subtraction (cutouts). `AgslGooeyRenderer.kt` (`androidMain`) embeds the *same* math as an
+AGSL/`RuntimeShader` string (`GOOEY_SHADER`) for GPU rendering on API 33+. **These two
+implementations must be kept in sync by hand** — there's no shared source; `RendererParityTest`
+(instrumented, Android-only) exists specifically to catch drift between them by rasterizing both
+and comparing contours.
 
-**Renderers** (`GooeyRenderer.kt`, selected via `GooeyRenderers`):
-- `agsl()` — GPU shader, requires API 33+.
+**Renderers** (`GooeyRenderer.kt` in `commonMain`, selected via `GooeyRenderers`):
+- `agsl()` — GPU shader, requires API 33+. An Android-only extension function (`androidMain`).
 - `path()` — CPU fallback: traces the SDF into a `Path` via marching squares (`ContourTracer.kt`)
   and fills it. Blobs only merge with blobs of the same color (grouped before tracing).
 - `plain()` — draws every blob independently, no merging; for debugging layouts.
-- `auto()` — picks `agsl()` on API 33+, else `path()`.
+- `auto()` — picks the best renderer via `internal expect fun defaultGooeyRenderer()`: on Android,
+  `agsl()` on API 33+ else `path()` (`GooeyRenderers.android.kt`); on iOS, always `path()` for now
+  — there's no SKSL renderer yet (`GooeyRenderers.ios.kt`).
 
 `ContourTracer.kt` is the shared marching-squares implementation used by both `PathGooeyRenderer`
 and `GooeyNotchShape`; it reuses internal buffers across calls and is explicitly **not
@@ -61,7 +73,7 @@ thread-safe**.
 or a drag (stretchy neck between source and dragged token). `TransferTimeline` defines the
 sub-phase fractions (e.g. bridge grows 0.05–0.30, token rises 0.15–0.60) — these functions are
 the place to adjust animation feel, and they're covered directly by `TransferBlobsTest` and
-`DragTest` without needing Compose.
+`DragTest` in `commonTest` without needing Compose.
 
 **State & composables** (`GooeyTransferState.kt`, `GooeyTransfer.kt`): `GooeyTransferState` owns
 registered sources, in-flight `TransferredItem`s, and the current `DragSession`; it builds the
@@ -87,5 +99,11 @@ be paired with a `GooeyTarget`'s `notchRadius` so the visual notch and the trans
   `GOOEY_SHADER` string in `AgslGooeyRenderer.kt` (GPU) together, then run
   `RendererParityTest` on a device/emulator.
 - Keep `GooeyChoreography.kt` functions pure (no Compose state) — that's what makes them
-  JVM-unit-testable in `reactify/src/test`.
+  unit-testable in `reactify/src/commonTest` across every target (JVM/Android now, iOS klib
+  compile already verified).
+- `reactify/src/commonTest` uses `kotlin.test`, not JUnit4 — JUnit4 annotations don't run on
+  Kotlin/Native, so new pure-logic tests belong there with `kotlin.test` imports.
+- When adding platform-specific behavior (like the renderer selection), follow the existing
+  `expect`/`actual` pattern (`GooeyRenderer.kt` common + `GooeyRenderers.android.kt` /
+  `GooeyRenderers.ios.kt`) rather than branching on platform at the call site.
 - Public API additions in `reactify` need an explicit visibility modifier (`explicitApi()`).
