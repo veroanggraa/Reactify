@@ -34,8 +34,8 @@ kotlin {
             implementation(libs.compose.ui)
             implementation(libs.compose.ui.graphics)
         }
-        getByName("androidHostTest").dependencies {
-            implementation(libs.junit)
+        commonTest.dependencies {
+            implementation(kotlin("test"))
         }
         getByName("androidDeviceTest").dependencies {
             implementation(project.dependencies.platform(libs.androidx.compose.bom))
