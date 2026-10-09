@@ -25,3 +25,4 @@ dependencyResolutionManagement {
 rootProject.name = "Reactify"
 include(":app")
 include(":reactify")
+include(":iosSample")
