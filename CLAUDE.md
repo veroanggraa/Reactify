@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project
 
 Reactify is a Kotlin Multiplatform Gradle project (Kotlin 2.2.10, AGP 9.4.1, Compose Multiplatform
-1.10.3) with two modules:
+1.10.3) with three Gradle modules plus an Xcode project:
 
 - `reactify` — the library module (namespace `com.veroanggra.reactify.gooey`). Implements "gooey"
   metaball-style UI: shapes (blobs) that merge, stretch necks, and pinch apart as items animate
@@ -18,8 +18,18 @@ Reactify is a Kotlin Multiplatform Gradle project (Kotlin 2.2.10, AGP 9.4.1, Com
 - `app` — a demo app (`com.veroanggra.reactify`), Android-only (plain `com.android.application`,
   no iOS target), that exercises the library via a single screen, `InviteFriendsScreen.kt` (an
   "invite friends" sheet where rows transfer avatar tokens into a card at the top).
+- `iosSample` — a minimal KMP module (no Android target) that builds `reactify` into an iOS
+  framework (`ReactifySample`, static) and exposes `MainViewController()` wrapping a single
+  composable (`App.kt`) that animates two circles together/apart through `GooeyRenderers.auto()`
+  — a smoke test for the iOS SkSL renderer. It has no UI of its own beyond that; `iosApp/` (an
+  Xcode project, not a Gradle module) is the actual runnable shell: a one-screen SwiftUI app whose
+  `ComposeView` (`UIViewControllerRepresentable`) embeds `MainViewControllerKt.MainViewController()`
+  from the framework. Building the Xcode target runs a "Compile Kotlin Framework" script phase
+  (`./gradlew :iosSample:embedAndSignAppleFrameworkForXcode`) first, so there's nothing to build
+  manually before opening `iosApp/iosApp.xcodeproj` and hitting Run.
 
-`app` depends on `reactify`'s Android target (`implementation(project(":reactify"))`). The library
+`app` depends on `reactify`'s Android target (`implementation(project(":reactify"))`);
+`iosSample` depends on `reactify`'s iOS targets the same way. The `reactify` library
 module has `kotlin { explicitApi() }` enabled — every public declaration needs an explicit
 visibility modifier (`public`/`internal`/`private`), and the compiler enforces it.
 
@@ -36,6 +46,12 @@ Run all commands from the repo root via the wrapper (`./gradlew`).
 - Sanity-check `commonTest` compiles for iOS (doesn't execute; needs Xcode/simulator for that):
   `./gradlew :reactify:compileTestKotlinIosArm64 :reactify:compileTestKotlinIosX64 :reactify:compileTestKotlinIosSimulatorArm64`
 - Instrumented tests (device/emulator required, `reactify/src/androidDeviceTest`): `./gradlew :reactify:connectedAndroidDeviceTest`
+- Run the iOS sample on a simulator: open `iosApp/iosApp.xcodeproj` in Xcode and hit Run. Requires
+  full Xcode (not just the Command Line Tools package) — `xcrun`'s iOS SDK, the Simulator app, and
+  `simctl` all come from Xcode.app. `./gradlew :iosSample:compileKotlinIos*` compiles the Kotlin
+  side and works with just the Command Line Tools, but linking the framework
+  (`linkDebugFrameworkIosSimulatorArm64` and friends) and anything simulator-related needs full
+  Xcode.
 - Lint: `./gradlew :app:lint`. The KMP `android-kotlin-multiplatform-library` plugin doesn't wire
   up a conventional `:reactify:lint` task yet — only `:reactify:lintAnalyzeAndroidHostTest` exists.
 
@@ -117,3 +133,7 @@ be paired with a `GooeyTarget`'s `notchRadius` so the visual notch and the trans
   `expect`/`actual` pattern (`GooeyRenderer.kt` common + `GooeyRenderers.android.kt` /
   `GooeyRenderers.ios.kt`) rather than branching on platform at the call site.
 - Public API additions in `reactify` need an explicit visibility modifier (`explicitApi()`).
+- To eyeball a change to the iOS renderer, run it through `iosSample`/`iosApp` (see "Common
+  commands") rather than trying to verify it from Gradle alone — `RuntimeEffect.makeForShader`
+  compiles SkSL at runtime, so a shader-text mistake only surfaces when the app actually runs, not
+  at Kotlin compile time, and Gradle compile tasks alone can't catch it.
