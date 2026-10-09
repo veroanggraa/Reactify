@@ -13,8 +13,8 @@ Reactify is a Kotlin Multiplatform Gradle project (Kotlin 2.2.10, AGP 9.4.1, Com
   that matters architecturally. It's a KMP library with an `android` target (via the
   `android-kotlin-multiplatform-library` AGP plugin) and `iosX64`/`iosArm64`/`iosSimulatorArm64`
   targets. Almost everything — scenes, SDF math, choreography, state, composables, the notch
-  shape — lives in `commonMain`; only the AGSL/`RuntimeShader` GPU renderer is Android-only
-  (`androidMain`). iOS currently falls back to the CPU path renderer (no SKSL renderer yet).
+  shape — lives in `commonMain`; the GPU renderers are platform-specific: AGSL/`RuntimeShader`
+  in `androidMain`, SkSL/Skiko `RuntimeEffect` in `iosMain`.
 - `app` — a demo app (`com.veroanggra.reactify`), Android-only (plain `com.android.application`,
   no iOS target), that exercises the library via a single screen, `InviteFriendsScreen.kt` (an
   "invite friends" sheet where rows transfer avatar tokens into a card at the top).
@@ -50,19 +50,27 @@ blend radius. Everything downstream is built around rendering and animating that
 **Signed-distance-field core.** `GooeyField.kt` (`commonMain`) is the CPU reference implementation:
 per-blob `sd*` distance functions combined with a polynomial smooth-min (blobs) and
 smooth-subtraction (cutouts). `AgslGooeyRenderer.kt` (`androidMain`) embeds the *same* math as an
-AGSL/`RuntimeShader` string (`GOOEY_SHADER`) for GPU rendering on API 33+. **These two
+AGSL/`RuntimeShader` string (`GOOEY_SHADER`) for GPU rendering on API 33+, and
+`SkslGooeyRenderer.kt` (`iosMain`) embeds it again as a SkSL string (`GOOEY_SKSL`) compiled via
+Skiko's `org.jetbrains.skia.RuntimeEffect`/`RuntimeShaderBuilder` — the same underlying shading
+engine AGSL is built on, so the shader text is copied verbatim between the two. **These three
 implementations must be kept in sync by hand** — there's no shared source; `RendererParityTest`
-(instrumented, Android-only) exists specifically to catch drift between them by rasterizing both
-and comparing contours.
+(instrumented, Android-only) exists to catch drift between the CPU and AGSL paths by rasterizing
+both and comparing contours, but there's no equivalent automated check for the SkSL path yet
+(Kotlin/Native tests can't run on a simulator in this environment — see "Working on this
+codebase").
 
 **Renderers** (`GooeyRenderer.kt` in `commonMain`, selected via `GooeyRenderers`):
 - `agsl()` — GPU shader, requires API 33+. An Android-only extension function (`androidMain`).
+- `sksl()` — GPU shader via Skiko's SkSL `RuntimeEffect`. An iOS-only extension function
+  (`iosMain`); no minimum OS version check needed since Skia (not a platform shader API) compiles
+  and runs it.
 - `path()` — CPU fallback: traces the SDF into a `Path` via marching squares (`ContourTracer.kt`)
   and fills it. Blobs only merge with blobs of the same color (grouped before tracing).
 - `plain()` — draws every blob independently, no merging; for debugging layouts.
 - `auto()` — picks the best renderer via `internal expect fun defaultGooeyRenderer()`: on Android,
-  `agsl()` on API 33+ else `path()` (`GooeyRenderers.android.kt`); on iOS, always `path()` for now
-  — there's no SKSL renderer yet (`GooeyRenderers.ios.kt`).
+  `agsl()` on API 33+ else `path()` (`GooeyRenderers.android.kt`); on iOS, always `sksl()`
+  (`GooeyRenderers.ios.kt`).
 
 `ContourTracer.kt` is the shared marching-squares implementation used by both `PathGooeyRenderer`
 and `GooeyNotchShape`; it reuses internal buffers across calls and is explicitly **not
@@ -95,9 +103,11 @@ be paired with a `GooeyTarget`'s `notchRadius` so the visual notch and the trans
 
 ## Working on this codebase
 
-- When changing the smooth-min/smooth-subtraction math, update `GooeyField.kt` (CPU) and the
-  `GOOEY_SHADER` string in `AgslGooeyRenderer.kt` (GPU) together, then run
-  `RendererParityTest` on a device/emulator.
+- When changing the smooth-min/smooth-subtraction math, update `GooeyField.kt` (CPU), the
+  `GOOEY_SHADER` string in `AgslGooeyRenderer.kt` (Android GPU), and the `GOOEY_SKSL` string in
+  `SkslGooeyRenderer.kt` (iOS GPU) together, then run `RendererParityTest` on a device/emulator.
+  There's no automated parity check for the SkSL path yet; verify it by eye on an iOS
+  simulator/device.
 - Keep `GooeyChoreography.kt` functions pure (no Compose state) — that's what makes them
   unit-testable in `reactify/src/commonTest` across every target (JVM/Android now, iOS klib
   compile already verified).
