@@ -3,7 +3,11 @@ plugins {
     alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.vanniktech.maven.publish)
 }
+
+group = "io.github.veroanggraa"
+version = "0.1.0-alpha01"
 
 kotlin {
     explicitApi()
@@ -43,6 +47,43 @@ kotlin {
             implementation(libs.androidx.junit)
             implementation(libs.androidx.espresso.core)
             implementation(libs.androidx.compose.ui.test.manifest)
+        }
+    }
+}
+
+mavenPublishing {
+    coordinates(group.toString(), "reactify", version.toString())
+
+    publishToMavenCentral()
+    signAllPublications()
+
+    pom {
+        name.set("Reactify")
+        description.set(
+            "Metaball-style \"gooey\" UI for Compose Multiplatform: shapes that merge, stretch " +
+                "necks, and pinch apart as items animate from a source into a target.",
+        )
+        url.set("https://github.com/veroanggraa/Reactify")
+
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+            }
+        }
+
+        developers {
+            developer {
+                id.set("veroanggraa")
+                name.set("Veronica")
+                url.set("https://github.com/veroanggraa")
+            }
+        }
+
+        scm {
+            url.set("https://github.com/veroanggraa/Reactify")
+            connection.set("scm:git:git://github.com/veroanggraa/Reactify.git")
+            developerConnection.set("scm:git:ssh://git@github.com/veroanggraa/Reactify.git")
         }
     }
 }
