@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.veroanggra.reactify.gooey.GooeyRenderer
 import com.veroanggra.reactify.gooey.GooeyRenderers
 
-public enum class Demo { List, BottomNav, Segmented }
+public enum class Demo { List, Cart, BottomNav, Segmented }
 
 /** Entry point shared by the Android (`app`) and iOS (`iosApp`) sample shells. */
 @Composable
@@ -36,6 +36,7 @@ public fun SampleApp(
     Box(modifier.fillMaxSize()) {
         when (demo) {
             Demo.List -> InviteFriendsScreen(renderer = renderer)
+            Demo.Cart -> ShoppingCartScreen(renderer = renderer)
             Demo.BottomNav -> BottomNavDemoScreen(renderer = renderer)
             Demo.Segmented -> SegmentedControlDemoScreen(renderer = renderer)
         }
@@ -70,6 +71,7 @@ private fun DemoSwitcher(selected: Demo, onSelect: (Demo) -> Unit, modifier: Mod
                 Text(
                     text = when (demo) {
                         Demo.List -> "List"
+                        Demo.Cart -> "Cart"
                         Demo.BottomNav -> "Bottom Nav"
                         Demo.Segmented -> "Segmented"
                     },
