@@ -1,4 +1,4 @@
-package com.veroanggra.reactify
+package com.veroanggra.reactify.sample
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.veroanggra.reactify.navbar.GooeyNavIndicatorHost
 import com.veroanggra.reactify.gooey.GooeyRenderer
@@ -69,10 +68,4 @@ fun BottomNavDemoScreen(
             }
         }
     }
-}
-
-@Preview
-@Composable
-private fun BottomNavDemoScreenPreview() {
-    BottomNavDemoScreen()
 }

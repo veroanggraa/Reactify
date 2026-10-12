@@ -1,4 +1,4 @@
-package com.veroanggra.reactify
+package com.veroanggra.reactify.sample
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
@@ -35,7 +35,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.veroanggra.reactify.gooey.GooeyRenderer
@@ -213,10 +212,4 @@ private fun Avatar(friend: Friend, modifier: Modifier = Modifier) {
             fontWeight = FontWeight.SemiBold,
         )
     }
-}
-
-@Preview
-@Composable
-private fun InviteFriendsScreenPreview() {
-    InviteFriendsScreen()
 }

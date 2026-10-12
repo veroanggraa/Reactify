@@ -13,6 +13,8 @@
 .externalNativeBuild
 .cxx
 local.properties
+/.kotlin
+/.idea/artifacts
 
 # Xcode
 xcuserdata/
