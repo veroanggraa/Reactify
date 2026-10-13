@@ -1,5 +1,6 @@
 *.iml
 .gradle
+/reactify_library_architecture_distribution_plan.md
 /local.properties
 /.idea/caches
 /.idea/libraries
