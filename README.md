@@ -164,6 +164,23 @@ Pass the renderer explicitly to any host (`GooeyTransferHost`, `GooeyNavIndicato
 The `app` module (Android) and `iosApp` (iOS, via `samples-shared`) both run the same demo: an
 invite-friends list, a bottom-nav indicator, and a segmented control, switchable from one screen.
 
+### Running the iOS sample
+
+Open `iosApp/iosApp.xcodeproj` in Xcode and run the `iosApp` scheme. The simulator works out of
+the box.
+
+To run on a physical device, create `iosApp/Configuration/Config.local.xcconfig` (git-ignored) with
+your own signing values:
+
+```
+TEAM_ID = ABCDE12345
+BUNDLE_ID = com.yourname.reactify.iosapp
+```
+
+Your Team ID is listed in Xcode → Settings → Accounts. A free Personal Team works; the bundle ID
+just has to be unique to you. Prefer this file over picking a team in Signing & Capabilities, which
+writes your team into the shared project file.
+
 ## License
 
 ```

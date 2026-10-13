@@ -1,0 +1,14 @@
+// Shared build settings for the iosApp sample.
+//
+// Running on the simulator needs no changes. To run on a physical device, create
+// `Config.local.xcconfig` next to this file (it is git-ignored) and override:
+//
+//     TEAM_ID = ABCDE12345
+//     BUNDLE_ID = com.yourname.reactify.iosapp
+//
+// Find your Team ID in Xcode → Settings → Accounts, or at developer.apple.com/account.
+
+TEAM_ID =
+BUNDLE_ID = com.veroanggra.reactify.iosapp
+
+#include? "Config.local.xcconfig"
