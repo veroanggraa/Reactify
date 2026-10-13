@@ -29,7 +29,7 @@ SDF core it builds three ready-to-use pieces:
   control option as the selection changes.
 
 Rendering is pluggable: AGSL (`RuntimeShader`) on Android API 33+, SkSL via Skiko on iOS, or a
-CPU path-tracing fallback everywhere else — pick automatically with `GooeyRenderers.auto()`.
+CPU path-tracing fallback everywhere else, pick automatically with `GooeyRenderers.auto()`.
 
 ## Demo
 
