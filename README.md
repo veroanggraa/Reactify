@@ -11,6 +11,10 @@
   <img alt="Platform" src="https://img.shields.io/badge/Platform-Android%20%7C%20iOS-blue"/>
 </p>
 
+<p align="center">
+📖 <a href="https://veroanggraa.github.io/Reactify">Full documentation</a>
+</p>
+
 ## What is this?
 
 Reactify renders a frame as a `GooeyScene`: a list of blobs (round rects, circles, capsules) that
