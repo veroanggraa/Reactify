@@ -1,0 +1,253 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.veroanggraa:reactify>
+abstract interface com.veroanggra.reactify.gooey/GooeyRenderer { // com.veroanggra.reactify.gooey/GooeyRenderer|null[0]
+    abstract fun (androidx.compose.ui.graphics.drawscope/DrawScope).draw(com.veroanggra.reactify.gooey/GooeyScene) // com.veroanggra.reactify.gooey/GooeyRenderer.draw|draw@androidx.compose.ui.graphics.drawscope.DrawScope(com.veroanggra.reactify.gooey.GooeyScene){}[0]
+}
+
+abstract interface com.veroanggra.reactify.list/GooeySourceScope { // com.veroanggra.reactify.list/GooeySourceScope|null[0]
+    abstract val isTransferred // com.veroanggra.reactify.list/GooeySourceScope.isTransferred|{}isTransferred[0]
+        abstract fun <get-isTransferred>(): kotlin/Boolean // com.veroanggra.reactify.list/GooeySourceScope.isTransferred.<get-isTransferred>|<get-isTransferred>(){}[0]
+
+    abstract fun (androidx.compose.ui/Modifier).tokenAnchor(): androidx.compose.ui/Modifier // com.veroanggra.reactify.list/GooeySourceScope.tokenAnchor|tokenAnchor@androidx.compose.ui.Modifier(){}[0]
+}
+
+abstract interface com.veroanggra.reactify.list/GooeyTargetScope { // com.veroanggra.reactify.list/GooeyTargetScope|null[0]
+    abstract fun TransferredTokens(androidx.compose.ui/Modifier, androidx.compose.ui.unit/Dp, androidx.compose.ui.unit/Dp, kotlin/Boolean, androidx.compose.runtime/Composer?, kotlin/Int) // com.veroanggra.reactify.list/GooeyTargetScope.TransferredTokens|TransferredTokens(androidx.compose.ui.Modifier;androidx.compose.ui.unit.Dp;androidx.compose.ui.unit.Dp;kotlin.Boolean;androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+
+    final class ComposeDefaultImpls { // com.veroanggra.reactify.list/GooeyTargetScope.ComposeDefaultImpls|null[0]
+        final fun TransferredTokens$default(androidx.compose.ui/Modifier?, androidx.compose.ui.unit/Dp, androidx.compose.ui.unit/Dp, kotlin/Boolean, com.veroanggra.reactify.list/GooeyTargetScope, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // com.veroanggra.reactify.list/GooeyTargetScope.ComposeDefaultImpls.TransferredTokens$default|TransferredTokens$default#static(androidx.compose.ui.Modifier?;androidx.compose.ui.unit.Dp;androidx.compose.ui.unit.Dp;kotlin.Boolean;com.veroanggra.reactify.list.GooeyTargetScope;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+    }
+}
+
+sealed interface com.veroanggra.reactify.gooey/Blob { // com.veroanggra.reactify.gooey/Blob|null[0]
+    abstract val color // com.veroanggra.reactify.gooey/Blob.color|{}color[0]
+        abstract fun <get-color>(): androidx.compose.ui.graphics/Color // com.veroanggra.reactify.gooey/Blob.color.<get-color>|<get-color>(){}[0]
+
+    final class Capsule : com.veroanggra.reactify.gooey/Blob { // com.veroanggra.reactify.gooey/Blob.Capsule|null[0]
+        constructor <init>(androidx.compose.ui.geometry/Offset, androidx.compose.ui.geometry/Offset, kotlin/Float, androidx.compose.ui.graphics/Color) // com.veroanggra.reactify.gooey/Blob.Capsule.<init>|<init>(androidx.compose.ui.geometry.Offset;androidx.compose.ui.geometry.Offset;kotlin.Float;androidx.compose.ui.graphics.Color){}[0]
+
+        final val color // com.veroanggra.reactify.gooey/Blob.Capsule.color|{}color[0]
+            final fun <get-color>(): androidx.compose.ui.graphics/Color // com.veroanggra.reactify.gooey/Blob.Capsule.color.<get-color>|<get-color>(){}[0]
+        final val end // com.veroanggra.reactify.gooey/Blob.Capsule.end|{}end[0]
+            final fun <get-end>(): androidx.compose.ui.geometry/Offset // com.veroanggra.reactify.gooey/Blob.Capsule.end.<get-end>|<get-end>(){}[0]
+        final val radius // com.veroanggra.reactify.gooey/Blob.Capsule.radius|{}radius[0]
+            final fun <get-radius>(): kotlin/Float // com.veroanggra.reactify.gooey/Blob.Capsule.radius.<get-radius>|<get-radius>(){}[0]
+        final val start // com.veroanggra.reactify.gooey/Blob.Capsule.start|{}start[0]
+            final fun <get-start>(): androidx.compose.ui.geometry/Offset // com.veroanggra.reactify.gooey/Blob.Capsule.start.<get-start>|<get-start>(){}[0]
+
+        final fun component1(): androidx.compose.ui.geometry/Offset // com.veroanggra.reactify.gooey/Blob.Capsule.component1|component1(){}[0]
+        final fun component2(): androidx.compose.ui.geometry/Offset // com.veroanggra.reactify.gooey/Blob.Capsule.component2|component2(){}[0]
+        final fun component3(): kotlin/Float // com.veroanggra.reactify.gooey/Blob.Capsule.component3|component3(){}[0]
+        final fun component4(): androidx.compose.ui.graphics/Color // com.veroanggra.reactify.gooey/Blob.Capsule.component4|component4(){}[0]
+        final fun copy(androidx.compose.ui.geometry/Offset = ..., androidx.compose.ui.geometry/Offset = ..., kotlin/Float = ..., androidx.compose.ui.graphics/Color = ...): com.veroanggra.reactify.gooey/Blob.Capsule // com.veroanggra.reactify.gooey/Blob.Capsule.copy|copy(androidx.compose.ui.geometry.Offset;androidx.compose.ui.geometry.Offset;kotlin.Float;androidx.compose.ui.graphics.Color){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.veroanggra.reactify.gooey/Blob.Capsule.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.veroanggra.reactify.gooey/Blob.Capsule.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.veroanggra.reactify.gooey/Blob.Capsule.toString|toString(){}[0]
+    }
+
+    final class Circle : com.veroanggra.reactify.gooey/Blob { // com.veroanggra.reactify.gooey/Blob.Circle|null[0]
+        constructor <init>(androidx.compose.ui.geometry/Offset, kotlin/Float, androidx.compose.ui.graphics/Color) // com.veroanggra.reactify.gooey/Blob.Circle.<init>|<init>(androidx.compose.ui.geometry.Offset;kotlin.Float;androidx.compose.ui.graphics.Color){}[0]
+
+        final val center // com.veroanggra.reactify.gooey/Blob.Circle.center|{}center[0]
+            final fun <get-center>(): androidx.compose.ui.geometry/Offset // com.veroanggra.reactify.gooey/Blob.Circle.center.<get-center>|<get-center>(){}[0]
+        final val color // com.veroanggra.reactify.gooey/Blob.Circle.color|{}color[0]
+            final fun <get-color>(): androidx.compose.ui.graphics/Color // com.veroanggra.reactify.gooey/Blob.Circle.color.<get-color>|<get-color>(){}[0]
+        final val radius // com.veroanggra.reactify.gooey/Blob.Circle.radius|{}radius[0]
+            final fun <get-radius>(): kotlin/Float // com.veroanggra.reactify.gooey/Blob.Circle.radius.<get-radius>|<get-radius>(){}[0]
+
+        final fun component1(): androidx.compose.ui.geometry/Offset // com.veroanggra.reactify.gooey/Blob.Circle.component1|component1(){}[0]
+        final fun component2(): kotlin/Float // com.veroanggra.reactify.gooey/Blob.Circle.component2|component2(){}[0]
+        final fun component3(): androidx.compose.ui.graphics/Color // com.veroanggra.reactify.gooey/Blob.Circle.component3|component3(){}[0]
+        final fun copy(androidx.compose.ui.geometry/Offset = ..., kotlin/Float = ..., androidx.compose.ui.graphics/Color = ...): com.veroanggra.reactify.gooey/Blob.Circle // com.veroanggra.reactify.gooey/Blob.Circle.copy|copy(androidx.compose.ui.geometry.Offset;kotlin.Float;androidx.compose.ui.graphics.Color){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.veroanggra.reactify.gooey/Blob.Circle.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.veroanggra.reactify.gooey/Blob.Circle.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.veroanggra.reactify.gooey/Blob.Circle.toString|toString(){}[0]
+    }
+
+    final class RoundRect : com.veroanggra.reactify.gooey/Blob { // com.veroanggra.reactify.gooey/Blob.RoundRect|null[0]
+        constructor <init>(androidx.compose.ui.geometry/Rect, kotlin/Float, androidx.compose.ui.graphics/Color) // com.veroanggra.reactify.gooey/Blob.RoundRect.<init>|<init>(androidx.compose.ui.geometry.Rect;kotlin.Float;androidx.compose.ui.graphics.Color){}[0]
+
+        final val color // com.veroanggra.reactify.gooey/Blob.RoundRect.color|{}color[0]
+            final fun <get-color>(): androidx.compose.ui.graphics/Color // com.veroanggra.reactify.gooey/Blob.RoundRect.color.<get-color>|<get-color>(){}[0]
+        final val cornerRadius // com.veroanggra.reactify.gooey/Blob.RoundRect.cornerRadius|{}cornerRadius[0]
+            final fun <get-cornerRadius>(): kotlin/Float // com.veroanggra.reactify.gooey/Blob.RoundRect.cornerRadius.<get-cornerRadius>|<get-cornerRadius>(){}[0]
+        final val rect // com.veroanggra.reactify.gooey/Blob.RoundRect.rect|{}rect[0]
+            final fun <get-rect>(): androidx.compose.ui.geometry/Rect // com.veroanggra.reactify.gooey/Blob.RoundRect.rect.<get-rect>|<get-rect>(){}[0]
+
+        final fun component1(): androidx.compose.ui.geometry/Rect // com.veroanggra.reactify.gooey/Blob.RoundRect.component1|component1(){}[0]
+        final fun component2(): kotlin/Float // com.veroanggra.reactify.gooey/Blob.RoundRect.component2|component2(){}[0]
+        final fun component3(): androidx.compose.ui.graphics/Color // com.veroanggra.reactify.gooey/Blob.RoundRect.component3|component3(){}[0]
+        final fun copy(androidx.compose.ui.geometry/Rect = ..., kotlin/Float = ..., androidx.compose.ui.graphics/Color = ...): com.veroanggra.reactify.gooey/Blob.RoundRect // com.veroanggra.reactify.gooey/Blob.RoundRect.copy|copy(androidx.compose.ui.geometry.Rect;kotlin.Float;androidx.compose.ui.graphics.Color){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.veroanggra.reactify.gooey/Blob.RoundRect.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.veroanggra.reactify.gooey/Blob.RoundRect.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.veroanggra.reactify.gooey/Blob.RoundRect.toString|toString(){}[0]
+    }
+}
+
+final class com.veroanggra.reactify.gooey/GooeyScene { // com.veroanggra.reactify.gooey/GooeyScene|null[0]
+    constructor <init>(kotlin.collections/List<com.veroanggra.reactify.gooey/Blob>, kotlin.collections/List<com.veroanggra.reactify.gooey/Blob> = ..., kotlin/Float) // com.veroanggra.reactify.gooey/GooeyScene.<init>|<init>(kotlin.collections.List<com.veroanggra.reactify.gooey.Blob>;kotlin.collections.List<com.veroanggra.reactify.gooey.Blob>;kotlin.Float){}[0]
+
+    final val blobs // com.veroanggra.reactify.gooey/GooeyScene.blobs|{}blobs[0]
+        final fun <get-blobs>(): kotlin.collections/List<com.veroanggra.reactify.gooey/Blob> // com.veroanggra.reactify.gooey/GooeyScene.blobs.<get-blobs>|<get-blobs>(){}[0]
+    final val cutouts // com.veroanggra.reactify.gooey/GooeyScene.cutouts|{}cutouts[0]
+        final fun <get-cutouts>(): kotlin.collections/List<com.veroanggra.reactify.gooey/Blob> // com.veroanggra.reactify.gooey/GooeyScene.cutouts.<get-cutouts>|<get-cutouts>(){}[0]
+    final val isEmpty // com.veroanggra.reactify.gooey/GooeyScene.isEmpty|{}isEmpty[0]
+        final fun <get-isEmpty>(): kotlin/Boolean // com.veroanggra.reactify.gooey/GooeyScene.isEmpty.<get-isEmpty>|<get-isEmpty>(){}[0]
+    final val smoothness // com.veroanggra.reactify.gooey/GooeyScene.smoothness|{}smoothness[0]
+        final fun <get-smoothness>(): kotlin/Float // com.veroanggra.reactify.gooey/GooeyScene.smoothness.<get-smoothness>|<get-smoothness>(){}[0]
+
+    final fun component1(): kotlin.collections/List<com.veroanggra.reactify.gooey/Blob> // com.veroanggra.reactify.gooey/GooeyScene.component1|component1(){}[0]
+    final fun component2(): kotlin.collections/List<com.veroanggra.reactify.gooey/Blob> // com.veroanggra.reactify.gooey/GooeyScene.component2|component2(){}[0]
+    final fun component3(): kotlin/Float // com.veroanggra.reactify.gooey/GooeyScene.component3|component3(){}[0]
+    final fun copy(kotlin.collections/List<com.veroanggra.reactify.gooey/Blob> = ..., kotlin.collections/List<com.veroanggra.reactify.gooey/Blob> = ..., kotlin/Float = ...): com.veroanggra.reactify.gooey/GooeyScene // com.veroanggra.reactify.gooey/GooeyScene.copy|copy(kotlin.collections.List<com.veroanggra.reactify.gooey.Blob>;kotlin.collections.List<com.veroanggra.reactify.gooey.Blob>;kotlin.Float){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.veroanggra.reactify.gooey/GooeyScene.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.veroanggra.reactify.gooey/GooeyScene.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.veroanggra.reactify.gooey/GooeyScene.toString|toString(){}[0]
+}
+
+final class com.veroanggra.reactify.list/GooeyNotchShape : androidx.compose.ui.graphics/Shape { // com.veroanggra.reactify.list/GooeyNotchShape|null[0]
+    constructor <init>(androidx.compose.ui.unit/Dp, androidx.compose.ui.unit/Dp, androidx.compose.ui.unit/Dp = ...) // com.veroanggra.reactify.list/GooeyNotchShape.<init>|<init>(androidx.compose.ui.unit.Dp;androidx.compose.ui.unit.Dp;androidx.compose.ui.unit.Dp){}[0]
+
+    final val cornerRadius // com.veroanggra.reactify.list/GooeyNotchShape.cornerRadius|{}cornerRadius[0]
+        final fun <get-cornerRadius>(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.list/GooeyNotchShape.cornerRadius.<get-cornerRadius>|<get-cornerRadius>(){}[0]
+    final val notchRadius // com.veroanggra.reactify.list/GooeyNotchShape.notchRadius|{}notchRadius[0]
+        final fun <get-notchRadius>(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.list/GooeyNotchShape.notchRadius.<get-notchRadius>|<get-notchRadius>(){}[0]
+    final val smoothness // com.veroanggra.reactify.list/GooeyNotchShape.smoothness|{}smoothness[0]
+        final fun <get-smoothness>(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.list/GooeyNotchShape.smoothness.<get-smoothness>|<get-smoothness>(){}[0]
+
+    final fun component1(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.list/GooeyNotchShape.component1|component1(){}[0]
+    final fun component2(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.list/GooeyNotchShape.component2|component2(){}[0]
+    final fun component3(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.list/GooeyNotchShape.component3|component3(){}[0]
+    final fun copy(androidx.compose.ui.unit/Dp = ..., androidx.compose.ui.unit/Dp = ..., androidx.compose.ui.unit/Dp = ...): com.veroanggra.reactify.list/GooeyNotchShape // com.veroanggra.reactify.list/GooeyNotchShape.copy|copy(androidx.compose.ui.unit.Dp;androidx.compose.ui.unit.Dp;androidx.compose.ui.unit.Dp){}[0]
+    final fun createOutline(androidx.compose.ui.geometry/Size, androidx.compose.ui.unit/LayoutDirection, androidx.compose.ui.unit/Density): androidx.compose.ui.graphics/Outline // com.veroanggra.reactify.list/GooeyNotchShape.createOutline|createOutline(androidx.compose.ui.geometry.Size;androidx.compose.ui.unit.LayoutDirection;androidx.compose.ui.unit.Density){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.veroanggra.reactify.list/GooeyNotchShape.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.veroanggra.reactify.list/GooeyNotchShape.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.veroanggra.reactify.list/GooeyNotchShape.toString|toString(){}[0]
+}
+
+final class com.veroanggra.reactify.list/GooeyTransferState { // com.veroanggra.reactify.list/GooeyTransferState|null[0]
+    final val isAnimating // com.veroanggra.reactify.list/GooeyTransferState.isAnimating|{}isAnimating[0]
+        final fun <get-isAnimating>(): kotlin/Boolean // com.veroanggra.reactify.list/GooeyTransferState.isAnimating.<get-isAnimating>|<get-isAnimating>(){}[0]
+    final val transferredKeys // com.veroanggra.reactify.list/GooeyTransferState.transferredKeys|{}transferredKeys[0]
+        final fun <get-transferredKeys>(): kotlin.collections/List<kotlin/Any> // com.veroanggra.reactify.list/GooeyTransferState.transferredKeys.<get-transferredKeys>|<get-transferredKeys>(){}[0]
+
+    final fun isTransferred(kotlin/Any): kotlin/Boolean // com.veroanggra.reactify.list/GooeyTransferState.isTransferred|isTransferred(kotlin.Any){}[0]
+    final fun remove(kotlin/Any) // com.veroanggra.reactify.list/GooeyTransferState.remove|remove(kotlin.Any){}[0]
+    final fun returnToSource(kotlin/Any) // com.veroanggra.reactify.list/GooeyTransferState.returnToSource|returnToSource(kotlin.Any){}[0]
+    final fun transfer(kotlin/Any) // com.veroanggra.reactify.list/GooeyTransferState.transfer|transfer(kotlin.Any){}[0]
+}
+
+final class com.veroanggra.reactify.navbar/GooeyNavIndicatorState { // com.veroanggra.reactify.navbar/GooeyNavIndicatorState|null[0]
+    final var selectedIndex // com.veroanggra.reactify.navbar/GooeyNavIndicatorState.selectedIndex|{}selectedIndex[0]
+        final fun <get-selectedIndex>(): kotlin/Int // com.veroanggra.reactify.navbar/GooeyNavIndicatorState.selectedIndex.<get-selectedIndex>|<get-selectedIndex>(){}[0]
+
+    final fun select(kotlin/Int) // com.veroanggra.reactify.navbar/GooeyNavIndicatorState.select|select(kotlin.Int){}[0]
+}
+
+final class com.veroanggra.reactify.segment/GooeySegmentedControlState { // com.veroanggra.reactify.segment/GooeySegmentedControlState|null[0]
+    final var selectedIndex // com.veroanggra.reactify.segment/GooeySegmentedControlState.selectedIndex|{}selectedIndex[0]
+        final fun <get-selectedIndex>(): kotlin/Int // com.veroanggra.reactify.segment/GooeySegmentedControlState.selectedIndex.<get-selectedIndex>|<get-selectedIndex>(){}[0]
+
+    final fun select(kotlin/Int) // com.veroanggra.reactify.segment/GooeySegmentedControlState.select|select(kotlin.Int){}[0]
+}
+
+final object com.veroanggra.reactify.gooey/GooeyRenderers { // com.veroanggra.reactify.gooey/GooeyRenderers|null[0]
+    final fun auto(): com.veroanggra.reactify.gooey/GooeyRenderer // com.veroanggra.reactify.gooey/GooeyRenderers.auto|auto(){}[0]
+    final fun path(androidx.compose.ui.unit/Dp = ...): com.veroanggra.reactify.gooey/GooeyRenderer // com.veroanggra.reactify.gooey/GooeyRenderers.path|path(androidx.compose.ui.unit.Dp){}[0]
+    final fun plain(): com.veroanggra.reactify.gooey/GooeyRenderer // com.veroanggra.reactify.gooey/GooeyRenderers.plain|plain(){}[0]
+}
+
+final object com.veroanggra.reactify.list/GooeyTransferDefaults { // com.veroanggra.reactify.list/GooeyTransferDefaults|null[0]
+    final const val MaxTintAlpha // com.veroanggra.reactify.list/GooeyTransferDefaults.MaxTintAlpha|{}MaxTintAlpha[0]
+        final fun <get-MaxTintAlpha>(): kotlin/Float // com.veroanggra.reactify.list/GooeyTransferDefaults.MaxTintAlpha.<get-MaxTintAlpha>|<get-MaxTintAlpha>(){}[0]
+    final const val TransferredAlpha // com.veroanggra.reactify.list/GooeyTransferDefaults.TransferredAlpha|{}TransferredAlpha[0]
+        final fun <get-TransferredAlpha>(): kotlin/Float // com.veroanggra.reactify.list/GooeyTransferDefaults.TransferredAlpha.<get-TransferredAlpha>|<get-TransferredAlpha>(){}[0]
+
+    final val CornerRadius // com.veroanggra.reactify.list/GooeyTransferDefaults.CornerRadius|{}CornerRadius[0]
+        final fun <get-CornerRadius>(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.list/GooeyTransferDefaults.CornerRadius.<get-CornerRadius>|<get-CornerRadius>(){}[0]
+    final val FlingVelocity // com.veroanggra.reactify.list/GooeyTransferDefaults.FlingVelocity|{}FlingVelocity[0]
+        final fun <get-FlingVelocity>(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.list/GooeyTransferDefaults.FlingVelocity.<get-FlingVelocity>|<get-FlingVelocity>(){}[0]
+    final val Smoothness // com.veroanggra.reactify.list/GooeyTransferDefaults.Smoothness|{}Smoothness[0]
+        final fun <get-Smoothness>(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.list/GooeyTransferDefaults.Smoothness.<get-Smoothness>|<get-Smoothness>(){}[0]
+    final val TokenSize // com.veroanggra.reactify.list/GooeyTransferDefaults.TokenSize|{}TokenSize[0]
+        final fun <get-TokenSize>(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.list/GooeyTransferDefaults.TokenSize.<get-TokenSize>|<get-TokenSize>(){}[0]
+    final val TokenSpacing // com.veroanggra.reactify.list/GooeyTransferDefaults.TokenSpacing|{}TokenSpacing[0]
+        final fun <get-TokenSpacing>(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.list/GooeyTransferDefaults.TokenSpacing.<get-TokenSpacing>|<get-TokenSpacing>(){}[0]
+    final val animationSpec // com.veroanggra.reactify.list/GooeyTransferDefaults.animationSpec|{}animationSpec[0]
+        final fun <get-animationSpec>(): androidx.compose.animation.core/AnimationSpec<kotlin/Float> // com.veroanggra.reactify.list/GooeyTransferDefaults.animationSpec.<get-animationSpec>|<get-animationSpec>(){}[0]
+}
+
+final object com.veroanggra.reactify.navbar/GooeyNavIndicatorDefaults { // com.veroanggra.reactify.navbar/GooeyNavIndicatorDefaults|null[0]
+    final val Smoothness // com.veroanggra.reactify.navbar/GooeyNavIndicatorDefaults.Smoothness|{}Smoothness[0]
+        final fun <get-Smoothness>(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.navbar/GooeyNavIndicatorDefaults.Smoothness.<get-Smoothness>|<get-Smoothness>(){}[0]
+    final val animationSpec // com.veroanggra.reactify.navbar/GooeyNavIndicatorDefaults.animationSpec|{}animationSpec[0]
+        final fun <get-animationSpec>(): androidx.compose.animation.core/AnimationSpec<kotlin/Float> // com.veroanggra.reactify.navbar/GooeyNavIndicatorDefaults.animationSpec.<get-animationSpec>|<get-animationSpec>(){}[0]
+}
+
+final object com.veroanggra.reactify.segment/GooeySegmentedControlDefaults { // com.veroanggra.reactify.segment/GooeySegmentedControlDefaults|null[0]
+    final val Smoothness // com.veroanggra.reactify.segment/GooeySegmentedControlDefaults.Smoothness|{}Smoothness[0]
+        final fun <get-Smoothness>(): androidx.compose.ui.unit/Dp // com.veroanggra.reactify.segment/GooeySegmentedControlDefaults.Smoothness.<get-Smoothness>|<get-Smoothness>(){}[0]
+    final val animationSpec // com.veroanggra.reactify.segment/GooeySegmentedControlDefaults.animationSpec|{}animationSpec[0]
+        final fun <get-animationSpec>(): androidx.compose.animation.core/AnimationSpec<kotlin/Float> // com.veroanggra.reactify.segment/GooeySegmentedControlDefaults.animationSpec.<get-animationSpec>|<get-animationSpec>(){}[0]
+}
+
+final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Capsule$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Capsule$stableprop|#static{}com_veroanggra_reactify_gooey_Blob_Capsule$stableprop[0]
+final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Circle$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Circle$stableprop|#static{}com_veroanggra_reactify_gooey_Blob_Circle$stableprop[0]
+final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_RoundRect$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_RoundRect$stableprop|#static{}com_veroanggra_reactify_gooey_Blob_RoundRect$stableprop[0]
+final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_ContourTracer$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_ContourTracer$stableprop|#static{}com_veroanggra_reactify_gooey_ContourTracer$stableprop[0]
+final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyField$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyField$stableprop|#static{}com_veroanggra_reactify_gooey_GooeyField$stableprop[0]
+final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyRenderers$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyRenderers$stableprop|#static{}com_veroanggra_reactify_gooey_GooeyRenderers$stableprop[0]
+final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyScene$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyScene$stableprop|#static{}com_veroanggra_reactify_gooey_GooeyScene$stableprop[0]
+final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_PathGooeyRenderer$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_PathGooeyRenderer$stableprop|#static{}com_veroanggra_reactify_gooey_PathGooeyRenderer$stableprop[0]
+final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_SkslGooeyRenderer$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_SkslGooeyRenderer$stableprop|#static{}com_veroanggra_reactify_gooey_SkslGooeyRenderer$stableprop[0]
+final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_SlidingIndicatorTimeline$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_SlidingIndicatorTimeline$stableprop|#static{}com_veroanggra_reactify_gooey_SlidingIndicatorTimeline$stableprop[0]
+final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_TransferTimeline$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_TransferTimeline$stableprop|#static{}com_veroanggra_reactify_gooey_TransferTimeline$stableprop[0]
+final val com.veroanggra.reactify.list/com_veroanggra_reactify_list_DragSession$stableprop // com.veroanggra.reactify.list/com_veroanggra_reactify_list_DragSession$stableprop|#static{}com_veroanggra_reactify_list_DragSession$stableprop[0]
+final val com.veroanggra.reactify.list/com_veroanggra_reactify_list_GooeyNotchShape$stableprop // com.veroanggra.reactify.list/com_veroanggra_reactify_list_GooeyNotchShape$stableprop|#static{}com_veroanggra_reactify_list_GooeyNotchShape$stableprop[0]
+final val com.veroanggra.reactify.list/com_veroanggra_reactify_list_GooeyTransferDefaults$stableprop // com.veroanggra.reactify.list/com_veroanggra_reactify_list_GooeyTransferDefaults$stableprop|#static{}com_veroanggra_reactify_list_GooeyTransferDefaults$stableprop[0]
+final val com.veroanggra.reactify.list/com_veroanggra_reactify_list_GooeyTransferState$stableprop // com.veroanggra.reactify.list/com_veroanggra_reactify_list_GooeyTransferState$stableprop|#static{}com_veroanggra_reactify_list_GooeyTransferState$stableprop[0]
+final val com.veroanggra.reactify.list/com_veroanggra_reactify_list_SourceEntry$stableprop // com.veroanggra.reactify.list/com_veroanggra_reactify_list_SourceEntry$stableprop|#static{}com_veroanggra_reactify_list_SourceEntry$stableprop[0]
+final val com.veroanggra.reactify.list/com_veroanggra_reactify_list_TransferredItem$stableprop // com.veroanggra.reactify.list/com_veroanggra_reactify_list_TransferredItem$stableprop|#static{}com_veroanggra_reactify_list_TransferredItem$stableprop[0]
+final val com.veroanggra.reactify.navbar/com_veroanggra_reactify_navbar_GooeyNavIndicatorDefaults$stableprop // com.veroanggra.reactify.navbar/com_veroanggra_reactify_navbar_GooeyNavIndicatorDefaults$stableprop|#static{}com_veroanggra_reactify_navbar_GooeyNavIndicatorDefaults$stableprop[0]
+final val com.veroanggra.reactify.navbar/com_veroanggra_reactify_navbar_GooeyNavIndicatorState$stableprop // com.veroanggra.reactify.navbar/com_veroanggra_reactify_navbar_GooeyNavIndicatorState$stableprop|#static{}com_veroanggra_reactify_navbar_GooeyNavIndicatorState$stableprop[0]
+final val com.veroanggra.reactify.segment/com_veroanggra_reactify_segment_GooeySegmentedControlDefaults$stableprop // com.veroanggra.reactify.segment/com_veroanggra_reactify_segment_GooeySegmentedControlDefaults$stableprop|#static{}com_veroanggra_reactify_segment_GooeySegmentedControlDefaults$stableprop[0]
+final val com.veroanggra.reactify.segment/com_veroanggra_reactify_segment_GooeySegmentedControlState$stableprop // com.veroanggra.reactify.segment/com_veroanggra_reactify_segment_GooeySegmentedControlState$stableprop|#static{}com_veroanggra_reactify_segment_GooeySegmentedControlState$stableprop[0]
+
+final fun (androidx.compose.ui/Modifier).com.veroanggra.reactify.navbar/gooeyNavItem(com.veroanggra.reactify.navbar/GooeyNavIndicatorState, kotlin/Int): androidx.compose.ui/Modifier // com.veroanggra.reactify.navbar/gooeyNavItem|gooeyNavItem@androidx.compose.ui.Modifier(com.veroanggra.reactify.navbar.GooeyNavIndicatorState;kotlin.Int){}[0]
+final fun (androidx.compose.ui/Modifier).com.veroanggra.reactify.segment/gooeySegmentItem(com.veroanggra.reactify.segment/GooeySegmentedControlState, kotlin/Int): androidx.compose.ui/Modifier // com.veroanggra.reactify.segment/gooeySegmentItem|gooeySegmentItem@androidx.compose.ui.Modifier(com.veroanggra.reactify.segment.GooeySegmentedControlState;kotlin.Int){}[0]
+final fun (com.veroanggra.reactify.gooey/GooeyRenderers).com.veroanggra.reactify.gooey/sksl(): com.veroanggra.reactify.gooey/GooeyRenderer // com.veroanggra.reactify.gooey/sksl|sksl@com.veroanggra.reactify.gooey.GooeyRenderers(){}[0]
+final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Capsule$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Capsule$stableprop_getter|com_veroanggra_reactify_gooey_Blob_Capsule$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Circle$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Circle$stableprop_getter|com_veroanggra_reactify_gooey_Blob_Circle$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_RoundRect$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_RoundRect$stableprop_getter|com_veroanggra_reactify_gooey_Blob_RoundRect$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_ContourTracer$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_ContourTracer$stableprop_getter|com_veroanggra_reactify_gooey_ContourTracer$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyField$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyField$stableprop_getter|com_veroanggra_reactify_gooey_GooeyField$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyRenderers$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyRenderers$stableprop_getter|com_veroanggra_reactify_gooey_GooeyRenderers$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyScene$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyScene$stableprop_getter|com_veroanggra_reactify_gooey_GooeyScene$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_PathGooeyRenderer$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_PathGooeyRenderer$stableprop_getter|com_veroanggra_reactify_gooey_PathGooeyRenderer$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_SkslGooeyRenderer$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_SkslGooeyRenderer$stableprop_getter|com_veroanggra_reactify_gooey_SkslGooeyRenderer$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_SlidingIndicatorTimeline$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_SlidingIndicatorTimeline$stableprop_getter|com_veroanggra_reactify_gooey_SlidingIndicatorTimeline$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_TransferTimeline$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_TransferTimeline$stableprop_getter|com_veroanggra_reactify_gooey_TransferTimeline$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.list/GooeySource(com.veroanggra.reactify.list/GooeyTransferState, kotlin/Any, androidx.compose.ui.graphics/Color, kotlin/Function2<androidx.compose.runtime/Composer, kotlin/Int, kotlin/Unit>, androidx.compose.ui/Modifier?, androidx.compose.ui.unit/Dp, kotlin/Boolean, kotlin/Boolean, kotlin/Float, kotlin/Function3<com.veroanggra.reactify.list/GooeySourceScope, androidx.compose.runtime/Composer, kotlin/Int, kotlin/Unit>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // com.veroanggra.reactify.list/GooeySource|GooeySource(com.veroanggra.reactify.list.GooeyTransferState;kotlin.Any;androidx.compose.ui.graphics.Color;kotlin.Function2<androidx.compose.runtime.Composer,kotlin.Int,kotlin.Unit>;androidx.compose.ui.Modifier?;androidx.compose.ui.unit.Dp;kotlin.Boolean;kotlin.Boolean;kotlin.Float;kotlin.Function3<com.veroanggra.reactify.list.GooeySourceScope,androidx.compose.runtime.Composer,kotlin.Int,kotlin.Unit>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun com.veroanggra.reactify.list/GooeyTarget(com.veroanggra.reactify.list/GooeyTransferState, androidx.compose.ui/Modifier?, androidx.compose.ui.unit/Dp, androidx.compose.ui.unit/Dp, kotlin/Function3<com.veroanggra.reactify.list/GooeyTargetScope, androidx.compose.runtime/Composer, kotlin/Int, kotlin/Unit>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // com.veroanggra.reactify.list/GooeyTarget|GooeyTarget(com.veroanggra.reactify.list.GooeyTransferState;androidx.compose.ui.Modifier?;androidx.compose.ui.unit.Dp;androidx.compose.ui.unit.Dp;kotlin.Function3<com.veroanggra.reactify.list.GooeyTargetScope,androidx.compose.runtime.Composer,kotlin.Int,kotlin.Unit>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun com.veroanggra.reactify.list/GooeyTransferHost(com.veroanggra.reactify.list/GooeyTransferState, androidx.compose.ui/Modifier?, com.veroanggra.reactify.gooey/GooeyRenderer?, androidx.compose.ui.unit/Dp, kotlin/Float, kotlin/Function3<androidx.compose.foundation.layout/BoxScope, androidx.compose.runtime/Composer, kotlin/Int, kotlin/Unit>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // com.veroanggra.reactify.list/GooeyTransferHost|GooeyTransferHost(com.veroanggra.reactify.list.GooeyTransferState;androidx.compose.ui.Modifier?;com.veroanggra.reactify.gooey.GooeyRenderer?;androidx.compose.ui.unit.Dp;kotlin.Float;kotlin.Function3<androidx.compose.foundation.layout.BoxScope,androidx.compose.runtime.Composer,kotlin.Int,kotlin.Unit>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun com.veroanggra.reactify.list/com_veroanggra_reactify_list_DragSession$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.list/com_veroanggra_reactify_list_DragSession$stableprop_getter|com_veroanggra_reactify_list_DragSession$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.list/com_veroanggra_reactify_list_GooeyNotchShape$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.list/com_veroanggra_reactify_list_GooeyNotchShape$stableprop_getter|com_veroanggra_reactify_list_GooeyNotchShape$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.list/com_veroanggra_reactify_list_GooeyTransferDefaults$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.list/com_veroanggra_reactify_list_GooeyTransferDefaults$stableprop_getter|com_veroanggra_reactify_list_GooeyTransferDefaults$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.list/com_veroanggra_reactify_list_GooeyTransferState$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.list/com_veroanggra_reactify_list_GooeyTransferState$stableprop_getter|com_veroanggra_reactify_list_GooeyTransferState$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.list/com_veroanggra_reactify_list_SourceEntry$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.list/com_veroanggra_reactify_list_SourceEntry$stableprop_getter|com_veroanggra_reactify_list_SourceEntry$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.list/com_veroanggra_reactify_list_TransferredItem$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.list/com_veroanggra_reactify_list_TransferredItem$stableprop_getter|com_veroanggra_reactify_list_TransferredItem$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.list/rememberGooeyTransferState(androidx.compose.animation.core/AnimationSpec<kotlin/Float>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.veroanggra.reactify.list/GooeyTransferState // com.veroanggra.reactify.list/rememberGooeyTransferState|rememberGooeyTransferState(androidx.compose.animation.core.AnimationSpec<kotlin.Float>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun com.veroanggra.reactify.navbar/GooeyNavIndicatorHost(com.veroanggra.reactify.navbar/GooeyNavIndicatorState, androidx.compose.ui.graphics/Color, androidx.compose.ui/Modifier?, androidx.compose.ui.unit/Dp?, androidx.compose.ui.unit/Dp, com.veroanggra.reactify.gooey/GooeyRenderer?, kotlin/Function3<androidx.compose.foundation.layout/BoxScope, androidx.compose.runtime/Composer, kotlin/Int, kotlin/Unit>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // com.veroanggra.reactify.navbar/GooeyNavIndicatorHost|GooeyNavIndicatorHost(com.veroanggra.reactify.navbar.GooeyNavIndicatorState;androidx.compose.ui.graphics.Color;androidx.compose.ui.Modifier?;androidx.compose.ui.unit.Dp?;androidx.compose.ui.unit.Dp;com.veroanggra.reactify.gooey.GooeyRenderer?;kotlin.Function3<androidx.compose.foundation.layout.BoxScope,androidx.compose.runtime.Composer,kotlin.Int,kotlin.Unit>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun com.veroanggra.reactify.navbar/com_veroanggra_reactify_navbar_GooeyNavIndicatorDefaults$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.navbar/com_veroanggra_reactify_navbar_GooeyNavIndicatorDefaults$stableprop_getter|com_veroanggra_reactify_navbar_GooeyNavIndicatorDefaults$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.navbar/com_veroanggra_reactify_navbar_GooeyNavIndicatorState$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.navbar/com_veroanggra_reactify_navbar_GooeyNavIndicatorState$stableprop_getter|com_veroanggra_reactify_navbar_GooeyNavIndicatorState$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.navbar/rememberGooeyNavIndicatorState(kotlin/Int, androidx.compose.animation.core/AnimationSpec<kotlin/Float>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.veroanggra.reactify.navbar/GooeyNavIndicatorState // com.veroanggra.reactify.navbar/rememberGooeyNavIndicatorState|rememberGooeyNavIndicatorState(kotlin.Int;androidx.compose.animation.core.AnimationSpec<kotlin.Float>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun com.veroanggra.reactify.segment/GooeySegmentedControlHost(com.veroanggra.reactify.segment/GooeySegmentedControlState, androidx.compose.ui.graphics/Color, androidx.compose.ui/Modifier?, androidx.compose.ui.unit/Dp?, androidx.compose.ui.unit/Dp, com.veroanggra.reactify.gooey/GooeyRenderer?, kotlin/Function3<androidx.compose.foundation.layout/BoxScope, androidx.compose.runtime/Composer, kotlin/Int, kotlin/Unit>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // com.veroanggra.reactify.segment/GooeySegmentedControlHost|GooeySegmentedControlHost(com.veroanggra.reactify.segment.GooeySegmentedControlState;androidx.compose.ui.graphics.Color;androidx.compose.ui.Modifier?;androidx.compose.ui.unit.Dp?;androidx.compose.ui.unit.Dp;com.veroanggra.reactify.gooey.GooeyRenderer?;kotlin.Function3<androidx.compose.foundation.layout.BoxScope,androidx.compose.runtime.Composer,kotlin.Int,kotlin.Unit>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun com.veroanggra.reactify.segment/com_veroanggra_reactify_segment_GooeySegmentedControlDefaults$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.segment/com_veroanggra_reactify_segment_GooeySegmentedControlDefaults$stableprop_getter|com_veroanggra_reactify_segment_GooeySegmentedControlDefaults$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.segment/com_veroanggra_reactify_segment_GooeySegmentedControlState$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.segment/com_veroanggra_reactify_segment_GooeySegmentedControlState$stableprop_getter|com_veroanggra_reactify_segment_GooeySegmentedControlState$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.segment/rememberGooeySegmentedControlState(kotlin/Int, androidx.compose.animation.core/AnimationSpec<kotlin/Float>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.veroanggra.reactify.segment/GooeySegmentedControlState // com.veroanggra.reactify.segment/rememberGooeySegmentedControlState|rememberGooeySegmentedControlState(kotlin.Int;androidx.compose.animation.core.AnimationSpec<kotlin.Float>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]

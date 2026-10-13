@@ -7,4 +7,14 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.vanniktech.maven.publish) apply false
+    alias(libs.plugins.kotlin.binary.compatibility)
+}
+
+apiValidation {
+    ignoredProjects.addAll(listOf("app", "samples-shared"))
+
+    @OptIn(kotlinx.validation.ExperimentalBCVApi::class)
+    klib {
+        enabled = true
+    }
 }
