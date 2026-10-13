@@ -26,13 +26,13 @@ kotlin {
             isStatic = true
             // Re-export reactify so Swift sees its public API (Blob, GooeyRenderers, ...)
             // alongside MainViewController from the same framework.
-            export(project(":reactify"))
+            export(libs.reactify)
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            api(project(":reactify"))
+            api(libs.reactify)
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.ui)

@@ -11,6 +11,7 @@ composeBom = "2026.02.01"
 composeMultiplatform = "1.10.3"
 composeMaterial3 = "1.9.0"
 vanniktechMavenPublish = "0.37.0"
+reactify = "0.1.0-alpha01"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,6 +35,7 @@ compose-ui-graphics = { group = "org.jetbrains.compose.ui", name = "ui-graphics"
 compose-material3 = { group = "org.jetbrains.compose.material3", name = "material3", version.ref = "composeMaterial3" }
 compose-animation = { group = "org.jetbrains.compose.animation", name = "animation", version.ref = "composeMultiplatform" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+reactify = { group = "io.github.veroanggraa", name = "reactify", version.ref = "reactify" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
