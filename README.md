@@ -154,7 +154,6 @@ Pass the renderer explicitly to any host (`GooeyTransferHost`, `GooeyNavIndicato
 
 The `app` module (Android) and `iosApp` (iOS, via `samples-shared`) both run the same demo: an
 invite-friends list, a bottom-nav indicator, and a segmented control, switchable from one screen.
-See [CLAUDE.md](CLAUDE.md) for the full architecture breakdown and how to run them.
 
 ## License
 
