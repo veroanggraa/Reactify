@@ -21,11 +21,11 @@ Reactify renders a frame as a `GooeyScene`: a list of blobs (round rects, circle
 smoothly merge via a polynomial smooth-min, plus cutouts that smoothly subtract. On top of that
 SDF core it builds three ready-to-use pieces:
 
-- **Transfer** — drag or tap an item in a list and watch a token fly into a card, with a gooey
+- **Transfer**, drag or tap an item in a list and watch a token fly into a card, with a gooey
   bridge connecting the two while it travels.
-- **Notch shape** — a rounded rect with a concave notch that opens/closes in sync with a transfer
+- **Notch shape**, a rounded rect with a concave notch that opens/closes in sync with a transfer
   target, built from the same distance field.
-- **Sliding indicators** — a liquid pill that bridges between a bottom-nav item or a segmented
+- **Sliding indicators**, a liquid pill that bridges between a bottom-nav item or a segmented
   control option as the selection changes.
 
 Rendering is pluggable: AGSL (`RuntimeShader`) on Android API 33+, SkSL via Skiko on iOS, or a
