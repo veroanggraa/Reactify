@@ -8,8 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.platform.LocalDensity
@@ -42,22 +40,21 @@ class RendererParityTest {
 
     private val width = 400
     private val height = 600
-    private val smoothness = 48f
 
     // AGSL should be exact up to anti-aliasing; Path is limited by its contour grid.
     private val agslTolerancePx = 1f
     private val pathTolerancePx = 3f
 
-    @Test fun bridge_agsl() = checkAgsl("bridge", bridgeScene())
-    @Test fun bridge_path() = checkPath("bridge", bridgeScene())
-    @Test fun breaking_agsl() = checkAgsl("breaking", breakingScene())
-    @Test fun breaking_path() = checkPath("breaking", breakingScene())
-    @Test fun dragNeck_agsl() = checkAgsl("dragNeck", dragScene())
-    @Test fun dragNeck_path() = checkPath("dragNeck", dragScene())
-    @Test fun notch_agsl() = checkAgsl("notch", notchScene())
-    @Test fun notch_path() = checkPath("notch", notchScene())
-    @Test fun merge_agsl() = checkAgsl("merge", mergeScene())
-    @Test fun merge_path() = checkPath("merge", mergeScene())
+    @Test fun bridge_agsl() = checkAgsl("bridge", ParityScenes.bridgeScene())
+    @Test fun bridge_path() = checkPath("bridge", ParityScenes.bridgeScene())
+    @Test fun breaking_agsl() = checkAgsl("breaking", ParityScenes.breakingScene())
+    @Test fun breaking_path() = checkPath("breaking", ParityScenes.breakingScene())
+    @Test fun dragNeck_agsl() = checkAgsl("dragNeck", ParityScenes.dragScene())
+    @Test fun dragNeck_path() = checkPath("dragNeck", ParityScenes.dragScene())
+    @Test fun notch_agsl() = checkAgsl("notch", ParityScenes.notchScene())
+    @Test fun notch_path() = checkPath("notch", ParityScenes.notchScene())
+    @Test fun merge_agsl() = checkAgsl("merge", ParityScenes.mergeScene())
+    @Test fun merge_path() = checkPath("merge", ParityScenes.mergeScene())
 
     private fun checkAgsl(name: String, scene: GooeyScene) {
         assumeTrue("AGSL needs API 33+", Build.VERSION.SDK_INT >= 33)
@@ -120,71 +117,6 @@ class RendererParityTest {
     private fun save(name: String, bitmap: Bitmap) {
         val dir = InstrumentationRegistry.getInstrumentation().targetContext.getExternalFilesDir("parity") ?: return
         File(dir, "$name.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
-    }
-
-    private val source = Rect(20f, 460f, 380f, 540f)
-    private val target = Rect(20f, 40f, 380f, 240f)
-    private val tokenStart = Rect(40f, 476f, 88f, 524f)
-    private val slot = Rect(176f, 116f, 224f, 164f)
-
-    private fun transferScene(progress: Float) = GooeyScene(
-        blobs = transferBlobs(
-            progress = progress,
-            color = Color.White,
-            source = source,
-            sourceCornerRadius = 32f,
-            target = target,
-            targetCornerRadius = 48f,
-            tokenStart = tokenStart,
-            token = tokenRectAt(progress, tokenStart, slot),
-            maxTintAlpha = 1f,
-        ).map { it.opaque() },
-        smoothness = smoothness,
-    )
-
-    private fun bridgeScene() = transferScene(0.4f)
-
-    private fun breakingScene() = transferScene(0.82f)
-
-    private fun dragScene(): GooeyScene {
-        val anchor = tokenStart.center
-        val finger = Offset(300f, 300f)
-        return GooeyScene(
-            blobs = dragBlobs(
-                color = Color.White,
-                source = source,
-                sourceCornerRadius = 32f,
-                target = null,
-                targetCornerRadius = 48f,
-                anchor = anchor,
-                token = Rect(finger, 24f),
-                tokenCenter = finger,
-                tokenRadius = 24f,
-                neckScale = 1f,
-                maxTintAlpha = 1f,
-            ).map { it.opaque() },
-            smoothness = smoothness,
-        )
-    }
-
-    private fun notchScene() = GooeyScene(
-        blobs = listOf(Blob.RoundRect(target, 48f, Color.White)),
-        cutouts = listOf(Blob.Circle(Offset(target.center.x, target.bottom), 60f, Color.White)),
-        smoothness = smoothness,
-    )
-
-    private fun mergeScene() = GooeyScene(
-        blobs = listOf(
-            Blob.Circle(Offset(140f, 360f), 60f, Color.White),
-            Blob.Circle(Offset(270f, 360f), 50f, Color.White),
-        ),
-        smoothness = smoothness,
-    )
-
-    private fun Blob.opaque(): Blob = when (this) {
-        is Blob.RoundRect -> copy(color = Color.White)
-        is Blob.Circle -> copy(color = Color.White)
-        is Blob.Capsule -> copy(color = Color.White)
     }
 
     private companion object {
