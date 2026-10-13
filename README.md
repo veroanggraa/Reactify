@@ -31,6 +31,15 @@ SDF core it builds three ready-to-use pieces:
 Rendering is pluggable: AGSL (`RuntimeShader`) on Android API 33+, SkSL via Skiko on iOS, or a
 CPU path-tracing fallback everywhere else — pick automatically with `GooeyRenderers.auto()`.
 
+## Demo
+
+<!-- TODO: replace with real recordings from the sample app, saved under docs/images/ -->
+
+|  | Transfer | Bottom Nav Indicator | Segmented Control |
+| --- | --- | --- | --- |
+| **Android** | ![Transfer demo (Android)](docs/images/transfer-android.gif) | ![Bottom nav indicator demo (Android)](docs/images/nav-indicator-android.gif) | ![Segmented control demo (Android)](docs/images/segmented-control-android.gif) |
+| **iOS** | ![Transfer demo (iOS)](docs/images/transfer-ios.gif) | ![Bottom nav indicator demo (iOS)](docs/images/nav-indicator-ios.gif) | ![Segmented control demo (iOS)](docs/images/segmented-control-ios.gif) |
+
 ## Including in your project
 
 ```kotlin

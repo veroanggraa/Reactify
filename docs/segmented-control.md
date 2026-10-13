@@ -1,5 +1,11 @@
 # Segmented Control
 
+=== "Android"
+    ![Segmented control demo (Android)](images/segmented-control-android.gif)
+
+=== "iOS"
+    ![Segmented control demo (iOS)](images/segmented-control-ios.gif)
+
 The same liquid pill, bridging between segmented control options as the selection changes.
 
 ```kotlin

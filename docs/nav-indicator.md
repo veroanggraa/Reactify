@@ -1,5 +1,11 @@
 # Bottom Navigation Indicator
 
+=== "Android"
+    ![Bottom nav indicator demo (Android)](images/nav-indicator-android.gif)
+
+=== "iOS"
+    ![Bottom nav indicator demo (iOS)](images/nav-indicator-ios.gif)
+
 A liquid pill that bridges between bottom-nav items as the selection changes.
 
 ```kotlin

@@ -1,5 +1,11 @@
 # Transfer: list item → card
 
+=== "Android"
+    ![Transfer demo (Android)](images/transfer-android.gif)
+
+=== "iOS"
+    ![Transfer demo (iOS)](images/transfer-ios.gif)
+
 Wrap the screen in a `GooeyTransferHost`, mark each source row with `GooeySource`, and give the
 target card a `GooeyTarget`. Tapping (or long-press-dragging) a source transfers its token.
 
