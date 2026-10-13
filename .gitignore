@@ -29,3 +29,6 @@ DerivedData/
 
 # MkDocs
 /site
+
+# Per-developer iOS signing overrides
+iosApp/Configuration/Config.local.xcconfig
