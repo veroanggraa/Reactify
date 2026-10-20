@@ -16,6 +16,7 @@ nav:
   - 'Segmented Control': segmented-control.md
   - 'Choosing a Renderer': renderers.md
   - 'Sample App': sample-app.md
+  - 'Changelog': CHANGELOG.md
 
 # Repository
 repo_name: 'Reactify'

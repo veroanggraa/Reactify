@@ -25,7 +25,7 @@ Initial release.
   Skiko on iOS, and a CPU path-tracing fallback (`GooeyRenderers.path()`) everywhere else, with
   `GooeyRenderers.auto()` picking the best one for the platform.
   `GooeyRenderers.plain()` draws blobs without merging, for debugging layouts.
-  See [Choosing a Renderer](docs/renderers.md).
+  See [Choosing a Renderer](renderers.md).
 - Kotlin Multiplatform support (Android + iOS), with shared sample screens in `samples-shared`.
 - Published to Maven Central as `io.github.veroanggraa:reactify`.
 - MkDocs documentation site, published at
