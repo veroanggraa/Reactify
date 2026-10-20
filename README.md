@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-📖 <a href="https://veroanggraa.github.io/Reactify">Full documentation</a> · 📝 <a href="CHANGELOG.md">Changelog</a>
+📖 <a href="https://veroanggraa.github.io/Reactify">Full documentation</a> · 📝 <a href="docs/CHANGELOG.md">Changelog</a>
 </p>
 
 ## What is this?
