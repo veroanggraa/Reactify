@@ -2,6 +2,8 @@ package com.veroanggra.reactify.gooey
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -18,12 +20,23 @@ import kotlin.math.max
  */
 internal class PathGooeyRenderer(private val cellSize: Dp = 2.5.dp) : GooeyRenderer {
     private val tracer = ContourTracer()
-    private val path = Path().apply { fillType = PathFillType.EvenOdd }
+
+    // Re-tracing is the expensive part; a scene that is structurally identical to last frame's
+    // (e.g. a settled indicator redrawn for an unrelated recomposition) can just replay these.
+    private var lastScene: GooeyScene? = null
+    private var lastSize: Size = Size.Unspecified
+    private val cachedPaths = LinkedHashMap<Color, Path>()
 
     override fun DrawScope.draw(scene: GooeyScene) {
         if (scene.isEmpty) return
+        if (scene == lastScene && size == lastSize) {
+            cachedPaths.forEach { (color, path) -> drawPath(path, color) }
+            return
+        }
+
         val cell = max(cellSize.toPx(), 2f)
         val canvas = Rect(Offset.Zero, size)
+        cachedPaths.clear()
 
         scene.blobs.groupBy { it.color }.forEach { (color, group) ->
             // Identical shapes would swell each other under smooth-min; keep one copy.
@@ -33,10 +46,13 @@ internal class PathGooeyRenderer(private val cellSize: Dp = 2.5.dp) : GooeyRende
             val field = GooeyField(blobs, scene.cutouts, scene.smoothness)
             val loops = tracer.trace(field, area, cell)
             if (loops.isEmpty()) return@forEach
-            path.rewind()
+            val path = Path().apply { fillType = PathFillType.EvenOdd }
             loops.forEach { path.addSmoothLoop(it) }
+            cachedPaths[color] = path
             drawPath(path, color)
         }
+        lastScene = scene
+        lastSize = size
     }
 }
 
