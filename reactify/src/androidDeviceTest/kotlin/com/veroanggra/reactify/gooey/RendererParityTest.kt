@@ -82,6 +82,10 @@ class RendererParityTest {
     // Several small circles joined by thin, partly-retracted necks at mid-spawn: same thin-contour
     // IoU sensitivity as slider, maxError stays <1px.
     @Test fun fabMenu_path() = checkPath("fabMenu", ParityScenes.fabMenuScene(), iouFloor = 0.97f)
+    @Test fun polygon_agsl() = checkAgsl("polygon", ParityScenes.polygonScene())
+    // The arrow's concave vertex is a sharp reflex angle, a harder case for the marching-squares
+    // grid than the smooth curves elsewhere; maxError (2.5px) stays inside the 3px tolerance.
+    @Test fun polygon_path() = checkPath("polygon", ParityScenes.polygonScene(), iouFloor = 0.97f)
 
     private fun checkAgsl(name: String, scene: GooeyScene) {
         assumeTrue("AGSL needs API 33+", Build.VERSION.SDK_INT >= 33)

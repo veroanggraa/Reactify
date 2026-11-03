@@ -28,7 +28,7 @@ import com.veroanggra.reactify.gooey.GooeyRenderers
 
 public enum class Demo {
     List, Cart, BottomNav, Segmented, Progress, Stepper, PullToRefresh,
-    Control, Badge, ChipGroup, Cutout, DropZone, FabMenu,
+    Control, Badge, ChipGroup, Cutout, DropZone, FabMenu, Polygon,
 }
 
 /** Entry point shared by the Android (`app`) and iOS (`iosApp`) sample shells. */
@@ -54,6 +54,7 @@ public fun SampleApp(
             Demo.Cutout -> CutoutDemoScreen()
             Demo.DropZone -> DropZoneDemoScreen(renderer = renderer)
             Demo.FabMenu -> FabMenuDemoScreen(renderer = renderer)
+            Demo.Polygon -> PolygonDemoScreen(renderer = renderer)
         }
         DemoSwitcher(
             selected = demo,
@@ -100,6 +101,7 @@ private fun DemoSwitcher(selected: Demo, onSelect: (Demo) -> Unit, modifier: Mod
                         Demo.Cutout -> "FAB Cutout"
                         Demo.DropZone -> "Drop Zone"
                         Demo.FabMenu -> "FAB Speed-dial"
+                        Demo.Polygon -> "Polygon"
                     },
                     color = if (isSelected) Color.Black else Color.White,
                     fontSize = 12.sp,

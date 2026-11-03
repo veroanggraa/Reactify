@@ -29,6 +29,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   another, each still joined by a thinning neck. See [FAB Speed-dial](fab-speed-dial.md).
 - **FAB Cutout** — `GooeyCutoutShape`: a `BottomAppBar`-style shape with a smooth concave cutout
   around a docked FAB. See [FAB Cutout](fab-cutout.md).
+- **Polygon** — `Blob.Polygon`: an arbitrary simple polygon (convex or concave) that merges with
+  the rest of a scene like any other blob, backed by a faithful port of Inigo Quilez's `sdPolygon`
+  in `GooeyField`, AGSL and SkSL. At most one per scene, at most 8 vertices, on the AGSL/SkSL
+  renderers; no such limit on `GooeyField`/`PathGooeyRenderer`. See [Polygon](polygon.md).
+
+### Changed
+
+- **Breaking**: `Blob` gains a new `Polygon` case. Any exhaustive `when (blob) { ... }` over it in
+  consuming code needs a new branch.
 
 ### Fixed
 

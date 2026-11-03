@@ -23,6 +23,7 @@ nav:
   - 'Drop Zone': drop-zone.md
   - 'FAB Speed-dial': fab-speed-dial.md
   - 'FAB Cutout': fab-cutout.md
+  - 'Polygon': polygon.md
   - 'Choosing a Renderer': renderers.md
   - 'Sample App': sample-app.md
   - 'Changelog': CHANGELOG.md
