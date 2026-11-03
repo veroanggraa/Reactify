@@ -55,6 +55,12 @@ class RendererParityTest {
     @Test fun notch_path() = checkPath("notch", ParityScenes.notchScene())
     @Test fun merge_agsl() = checkAgsl("merge", ParityScenes.mergeScene())
     @Test fun merge_path() = checkPath("merge", ParityScenes.mergeScene())
+    @Test fun progressNeck_agsl() = checkAgsl("progressNeck", ParityScenes.progressNeckScene())
+    @Test fun progressNeck_path() = checkPath("progressNeck", ParityScenes.progressNeckScene())
+    @Test fun stepper_agsl() = checkAgsl("stepper", ParityScenes.stepperScene())
+    @Test fun stepper_path() = checkPath("stepper", ParityScenes.stepperScene())
+    @Test fun pull_agsl() = checkAgsl("pull", ParityScenes.pullScene())
+    @Test fun pull_path() = checkPath("pull", ParityScenes.pullScene())
 
     private fun checkAgsl(name: String, scene: GooeyScene) {
         assumeTrue("AGSL needs API 33+", Build.VERSION.SDK_INT >= 33)

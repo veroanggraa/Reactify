@@ -87,19 +87,19 @@ internal fun slidingBridgeBlobs(progress: Float, from: Rect, to: Rect, width: Fl
 }
 
 /** Thread anchored at both ends, thinning towards the middle in proportion to how far it's stretched. */
-private fun neckingThread(startX: Float, endX: Float, rowY: Float, width: Float, color: Color): List<Blob> {
+internal fun neckingThread(startX: Float, endX: Float, rowY: Float, width: Float, color: Color): List<Blob> {
     val stretch = (abs(endX - startX) / (width * 3f)).coerceIn(0f, 1f)
     return threadSegments(startX, endX, rowY, width, color) { mid -> 1f - 0.6f * stretch * sin(PI.toFloat() * mid) }
 }
 
 /** Thread anchored at [anchorX], tapering towards its free, retracting tip at [tipX]. */
-private fun taperedTip(anchorX: Float, tipX: Float, rowY: Float, width: Float, color: Color): List<Blob> {
+internal fun taperedTip(anchorX: Float, tipX: Float, rowY: Float, width: Float, color: Color): List<Blob> {
     if (abs(tipX - anchorX) < 1f) return emptyList()
     val stretch = (abs(tipX - anchorX) / (width * 2.5f)).coerceIn(0f, 1f)
     return threadSegments(anchorX, tipX, rowY, width, color) { tipFactor -> 1f - 0.7f * stretch * tipFactor }
 }
 
-private inline fun threadSegments(
+internal inline fun threadSegments(
     startX: Float,
     endX: Float,
     rowY: Float,

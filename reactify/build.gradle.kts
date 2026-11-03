@@ -51,6 +51,17 @@ kotlin {
     }
 }
 
+// AGP's `com.android.kotlin.multiplatform.library` plugin doesn't expose `androidTest.sources.assets`
+// yet, so the Compose Multiplatform resources plugin can't wire this task's `outputDirectory` and Gradle
+// refuses to run it ("Value not set"). There are no real Compose resources in this module either way, so
+// the task is a no-op; it just needs a valid output directory to satisfy Gradle's property validation.
+// The task type itself is internal to the compose-gradle-plugin module, hence the reflection.
+tasks.matching { it.name == "copyAndroidDeviceTestComposeResourcesToAndroidAssets" }.configureEach {
+    val outputDirectory = javaClass.getMethod("getOutputDirectory").invoke(this)
+        as org.gradle.api.file.DirectoryProperty
+    outputDirectory.set(layout.buildDirectory.dir("intermediates/compose-resources/$name"))
+}
+
 mavenPublishing {
     coordinates(group.toString(), "reactify", version.toString())
 

@@ -2,11 +2,14 @@ package com.veroanggra.reactify.sample
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.veroanggra.reactify.gooey.GooeyRenderer
 import com.veroanggra.reactify.gooey.GooeyRenderers
 
-public enum class Demo { List, Cart, BottomNav, Segmented }
+public enum class Demo { List, Cart, BottomNav, Segmented, Progress, Stepper, PullToRefresh }
 
 /** Entry point shared by the Android (`app`) and iOS (`iosApp`) sample shells. */
 @Composable
@@ -39,6 +42,9 @@ public fun SampleApp(
             Demo.Cart -> ShoppingCartScreen(renderer = renderer)
             Demo.BottomNav -> BottomNavDemoScreen(renderer = renderer)
             Demo.Segmented -> SegmentedControlDemoScreen(renderer = renderer)
+            Demo.Progress -> ProgressDemoScreen(renderer = renderer)
+            Demo.Stepper -> StepperDemoScreen(renderer = renderer)
+            Demo.PullToRefresh -> PullToRefreshDemoScreen(renderer = renderer)
         }
         DemoSwitcher(
             selected = demo,
@@ -55,8 +61,10 @@ public fun SampleApp(
 private fun DemoSwitcher(selected: Demo, onSelect: (Demo) -> Unit, modifier: Modifier = Modifier) {
     Row(
         modifier
+            .widthIn(max = 260.dp)
             .clip(RoundedCornerShape(20.dp))
             .background(Color.White.copy(alpha = 0.15f))
+            .horizontalScroll(rememberScrollState())
             .padding(4.dp),
     ) {
         Demo.entries.forEach { demo ->
@@ -74,6 +82,9 @@ private fun DemoSwitcher(selected: Demo, onSelect: (Demo) -> Unit, modifier: Mod
                         Demo.Cart -> "Cart"
                         Demo.BottomNav -> "Bottom Nav"
                         Demo.Segmented -> "Segmented"
+                        Demo.Progress -> "Progress"
+                        Demo.Stepper -> "Stepper"
+                        Demo.PullToRefresh -> "Pull to Refresh"
                     },
                     color = if (isSelected) Color.Black else Color.White,
                     fontSize = 12.sp,

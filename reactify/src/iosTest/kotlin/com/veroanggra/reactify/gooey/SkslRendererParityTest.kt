@@ -34,6 +34,9 @@ class SkslRendererParityTest {
     @Test fun dragNeck() = check("dragNeck", ParityScenes.dragScene())
     @Test fun notch() = check("notch", ParityScenes.notchScene())
     @Test fun merge() = check("merge", ParityScenes.mergeScene())
+    @Test fun progressNeck() = check("progressNeck", ParityScenes.progressNeckScene())
+    @Test fun stepper() = check("stepper", ParityScenes.stepperScene())
+    @Test fun pull() = check("pull", ParityScenes.pullScene())
 
     private fun check(name: String, scene: GooeyScene) {
         val renderer = GooeyRenderers.sksl()
