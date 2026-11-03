@@ -70,6 +70,22 @@ sealed interface com.veroanggra.reactify.gooey/Blob { // com.veroanggra.reactify
         final fun toString(): kotlin/String // com.veroanggra.reactify.gooey/Blob.Circle.toString|toString(){}[0]
     }
 
+    final class Polygon : com.veroanggra.reactify.gooey/Blob { // com.veroanggra.reactify.gooey/Blob.Polygon|null[0]
+        constructor <init>(kotlin.collections/List<androidx.compose.ui.geometry/Offset>, androidx.compose.ui.graphics/Color) // com.veroanggra.reactify.gooey/Blob.Polygon.<init>|<init>(kotlin.collections.List<androidx.compose.ui.geometry.Offset>;androidx.compose.ui.graphics.Color){}[0]
+
+        final val color // com.veroanggra.reactify.gooey/Blob.Polygon.color|{}color[0]
+            final fun <get-color>(): androidx.compose.ui.graphics/Color // com.veroanggra.reactify.gooey/Blob.Polygon.color.<get-color>|<get-color>(){}[0]
+        final val vertices // com.veroanggra.reactify.gooey/Blob.Polygon.vertices|{}vertices[0]
+            final fun <get-vertices>(): kotlin.collections/List<androidx.compose.ui.geometry/Offset> // com.veroanggra.reactify.gooey/Blob.Polygon.vertices.<get-vertices>|<get-vertices>(){}[0]
+
+        final fun component1(): kotlin.collections/List<androidx.compose.ui.geometry/Offset> // com.veroanggra.reactify.gooey/Blob.Polygon.component1|component1(){}[0]
+        final fun component2(): androidx.compose.ui.graphics/Color // com.veroanggra.reactify.gooey/Blob.Polygon.component2|component2(){}[0]
+        final fun copy(kotlin.collections/List<androidx.compose.ui.geometry/Offset> = ..., androidx.compose.ui.graphics/Color = ...): com.veroanggra.reactify.gooey/Blob.Polygon // com.veroanggra.reactify.gooey/Blob.Polygon.copy|copy(kotlin.collections.List<androidx.compose.ui.geometry.Offset>;androidx.compose.ui.graphics.Color){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.veroanggra.reactify.gooey/Blob.Polygon.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.veroanggra.reactify.gooey/Blob.Polygon.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.veroanggra.reactify.gooey/Blob.Polygon.toString|toString(){}[0]
+    }
+
     final class RoundRect : com.veroanggra.reactify.gooey/Blob { // com.veroanggra.reactify.gooey/Blob.RoundRect|null[0]
         constructor <init>(androidx.compose.ui.geometry/Rect, kotlin/Float, androidx.compose.ui.graphics/Color) // com.veroanggra.reactify.gooey/Blob.RoundRect.<init>|<init>(androidx.compose.ui.geometry.Rect;kotlin.Float;androidx.compose.ui.graphics.Color){}[0]
 
@@ -359,6 +375,9 @@ final object com.veroanggra.reactify.stepper/GooeyStepperDefaults { // com.veroa
         final fun <get-animationSpec>(): androidx.compose.animation.core/AnimationSpec<kotlin/Float> // com.veroanggra.reactify.stepper/GooeyStepperDefaults.animationSpec.<get-animationSpec>|<get-animationSpec>(){}[0]
 }
 
+final const val com.veroanggra.reactify.gooey/MAX_POLYGON_VERTICES // com.veroanggra.reactify.gooey/MAX_POLYGON_VERTICES|{}MAX_POLYGON_VERTICES[0]
+    final fun <get-MAX_POLYGON_VERTICES>(): kotlin/Int // com.veroanggra.reactify.gooey/MAX_POLYGON_VERTICES.<get-MAX_POLYGON_VERTICES>|<get-MAX_POLYGON_VERTICES>(){}[0]
+
 final val com.veroanggra.reactify.badge/com_veroanggra_reactify_badge_GooeyBadgeDefaults$stableprop // com.veroanggra.reactify.badge/com_veroanggra_reactify_badge_GooeyBadgeDefaults$stableprop|#static{}com_veroanggra_reactify_badge_GooeyBadgeDefaults$stableprop[0]
 final val com.veroanggra.reactify.chip/com_veroanggra_reactify_chip_GooeyChipGroupDefaults$stableprop // com.veroanggra.reactify.chip/com_veroanggra_reactify_chip_GooeyChipGroupDefaults$stableprop|#static{}com_veroanggra_reactify_chip_GooeyChipGroupDefaults$stableprop[0]
 final val com.veroanggra.reactify.chip/com_veroanggra_reactify_chip_GooeyChipGroupState$stableprop // com.veroanggra.reactify.chip/com_veroanggra_reactify_chip_GooeyChipGroupState$stableprop|#static{}com_veroanggra_reactify_chip_GooeyChipGroupState$stableprop[0]
@@ -367,6 +386,7 @@ final val com.veroanggra.reactify.fab/com_veroanggra_reactify_fab_GooeyFabDefaul
 final val com.veroanggra.reactify.fab/com_veroanggra_reactify_fab_GooeyFabState$stableprop // com.veroanggra.reactify.fab/com_veroanggra_reactify_fab_GooeyFabState$stableprop|#static{}com_veroanggra_reactify_fab_GooeyFabState$stableprop[0]
 final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Capsule$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Capsule$stableprop|#static{}com_veroanggra_reactify_gooey_Blob_Capsule$stableprop[0]
 final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Circle$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Circle$stableprop|#static{}com_veroanggra_reactify_gooey_Blob_Circle$stableprop[0]
+final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Polygon$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Polygon$stableprop|#static{}com_veroanggra_reactify_gooey_Blob_Polygon$stableprop[0]
 final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_RoundRect$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_RoundRect$stableprop|#static{}com_veroanggra_reactify_gooey_Blob_RoundRect$stableprop[0]
 final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_ContourTracer$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_ContourTracer$stableprop|#static{}com_veroanggra_reactify_gooey_ContourTracer$stableprop[0]
 final val com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyCutoutShape$stableprop // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyCutoutShape$stableprop|#static{}com_veroanggra_reactify_gooey_GooeyCutoutShape$stableprop[0]
@@ -416,6 +436,7 @@ final fun com.veroanggra.reactify.fab/com_veroanggra_reactify_fab_GooeyFabState$
 final fun com.veroanggra.reactify.fab/rememberGooeyFabState(androidx.compose.runtime/Composer?, kotlin/Int): com.veroanggra.reactify.fab/GooeyFabState // com.veroanggra.reactify.fab/rememberGooeyFabState|rememberGooeyFabState(androidx.compose.runtime.Composer?;kotlin.Int){}[0]
 final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Capsule$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Capsule$stableprop_getter|com_veroanggra_reactify_gooey_Blob_Capsule$stableprop_getter(){}[0]
 final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Circle$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Circle$stableprop_getter|com_veroanggra_reactify_gooey_Blob_Circle$stableprop_getter(){}[0]
+final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Polygon$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_Polygon$stableprop_getter|com_veroanggra_reactify_gooey_Blob_Polygon$stableprop_getter(){}[0]
 final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_RoundRect$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_Blob_RoundRect$stableprop_getter|com_veroanggra_reactify_gooey_Blob_RoundRect$stableprop_getter(){}[0]
 final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_ContourTracer$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_ContourTracer$stableprop_getter|com_veroanggra_reactify_gooey_ContourTracer$stableprop_getter(){}[0]
 final fun com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyCutoutShape$stableprop_getter(): kotlin/Int // com.veroanggra.reactify.gooey/com_veroanggra_reactify_gooey_GooeyCutoutShape$stableprop_getter|com_veroanggra_reactify_gooey_GooeyCutoutShape$stableprop_getter(){}[0]

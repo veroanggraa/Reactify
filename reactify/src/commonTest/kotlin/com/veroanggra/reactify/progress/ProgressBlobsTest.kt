@@ -28,6 +28,7 @@ class ProgressBlobsTest {
             maxOf(start.x, end.x) + radius,
             maxOf(start.y, end.y) + radius,
         )
+        is Blob.Polygon -> error("not produced by linearProgressBlobs")
     }
 
     private fun assertInside(blobs: List<Blob>, area: Rect) {

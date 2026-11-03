@@ -43,6 +43,7 @@ class SkslRendererParityTest {
     @Test fun cutout() = check("cutout", ParityScenes.cutoutScene())
     @Test fun dropZone() = check("dropZone", ParityScenes.dropZoneScene())
     @Test fun fabMenu() = check("fabMenu", ParityScenes.fabMenuScene())
+    @Test fun polygon() = check("polygon", ParityScenes.polygonScene())
 
     private fun check(name: String, scene: GooeyScene, iouFloor: Float = 0.99f) {
         val renderer = GooeyRenderers.sksl()
