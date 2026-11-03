@@ -1,0 +1,1236 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Metaball-style "gooey" UI for Compose Multiplatform: shapes that merge, stretch a neck, and pinch apart as items animate from a source into a target.">
+      
+      
+        <meta name="author" content="Veronica (veroanggraa)">
+      
+      
+        <link rel="canonical" href="https://veroanggraa.github.io/Reactify/transfer/">
+      
+      
+        <link rel="prev" href="../getting-started/">
+      
+      
+        <link rel="next" href="../nav-indicator/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Transfer - Reactify</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#transfer-list-item-card" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Reactify" class="md-header__button md-logo" aria-label="Reactify" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 8.5a1.5 1.5 0 0 0-1.5 1.5 1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 0 0 14 8.5m0 4a1.5 1.5 0 0 0-1.5 1.5 1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5 1.5 1.5 0 0 0-1.5-1.5M10 17a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m0-8.5A1.5 1.5 0 0 0 8.5 10a1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 0 0 10 8.5m4 12a.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5m0-3.5a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m7-3.5a.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5M18 5a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m0 4a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m0 8a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m0-4a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m-8-.5A1.5 1.5 0 0 0 8.5 14a1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5 1.5 1.5 0 0 0-1.5-1.5M10 7a1 1 0 0 0 1-1 1 1 0 0 0-1-1 1 1 0 0 0-1 1 1 1 0 0 0 1 1m0-3.5a.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5m0 17a.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5m-7-7a.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5m11-10a.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5M14 7a1 1 0 0 0 1-1 1 1 0 0 0-1-1 1 1 0 0 0-1 1 1 1 0 0 0 1 1m7 3.5a.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5M6 5a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M3 9.5a.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5M6 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m0 8a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m0-4a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Reactify
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Transfer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/veroanggraa/Reactify" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Reactify
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Reactify" class="md-nav__button md-logo" aria-label="Reactify" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 8.5a1.5 1.5 0 0 0-1.5 1.5 1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 0 0 14 8.5m0 4a1.5 1.5 0 0 0-1.5 1.5 1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5 1.5 1.5 0 0 0-1.5-1.5M10 17a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m0-8.5A1.5 1.5 0 0 0 8.5 10a1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 0 0 10 8.5m4 12a.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5m0-3.5a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m7-3.5a.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5M18 5a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m0 4a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m0 8a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m0-4a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m-8-.5A1.5 1.5 0 0 0 8.5 14a1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5 1.5 1.5 0 0 0-1.5-1.5M10 7a1 1 0 0 0 1-1 1 1 0 0 0-1-1 1 1 0 0 0-1 1 1 1 0 0 0 1 1m0-3.5a.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5m0 17a.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5m-7-7a.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5m11-10a.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5M14 7a1 1 0 0 0 1-1 1 1 0 0 0-1-1 1 1 0 0 0-1 1 1 1 0 0 0 1 1m7 3.5a.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5M6 5a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M3 9.5a.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5M6 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m0 8a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m0-4a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"/></svg>
+
+    </a>
+    Reactify
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/veroanggraa/Reactify" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Reactify
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transfer
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transfer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-state-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the state works
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How the state works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state-you-can-read-and-call-yourself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State you can read and call yourself
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-the-colors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customizing the colors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changing-the-token-icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changing the token / icon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pairing-with-a-notch-shape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pairing with a notch shape
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tap-vs-drag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tap vs. drag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tips-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tips &amp; troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nav-indicator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bottom Navigation Indicator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../segmented-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Segmented Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../progress/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Progress Indicator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stepper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stepper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pull-to-refresh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pull to Refresh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../renderers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choosing a Renderer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sample-app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sample App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-state-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the state works
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How the state works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state-you-can-read-and-call-yourself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State you can read and call yourself
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-the-colors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customizing the colors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changing-the-token-icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changing the token / icon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pairing-with-a-notch-shape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pairing with a notch shape
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tap-vs-drag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tap vs. drag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tips-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tips &amp; troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="transfer-list-item-card">Transfer: list item → card<a class="headerlink" href="#transfer-list-item-card" title="Permanent link">&para;</a></h1>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Android</label><label for="__tabbed_1_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img alt="Transfer demo (Android)" src="../images/transfer-android.gif" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="Transfer demo (iOS)" src="../images/transfer-ios.gif" /></p>
+</div>
+</div>
+</div>
+<p>Wrap the screen in a <code>GooeyTransferHost</code>, mark each source row with <code>GooeySource</code>, and give the
+target card a <code>GooeyTarget</code>. Tapping (or long-press-dragging) a source transfers its token into the
+target, with a gooey bridge connecting the two while it travels.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rememberGooeyTransferState</span><span class="p">()</span>
+
+<span class="n">GooeyTransferHost</span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Column</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">GooeyTarget</span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">cornerRadius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">28.</span><span class="n">dp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">TransferredTokens</span><span class="p">()</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">LazyColumn</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">items</span><span class="p">(</span><span class="n">friends</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">friend</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">GooeySource</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">friend</span><span class="p">.</span><span class="na">id</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">friend</span><span class="p">.</span><span class="na">tint</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">cornerRadius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16.</span><span class="n">dp</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Avatar</span><span class="p">(</span><span class="n">friend</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">FriendRow</span><span class="p">(</span><span class="n">friend</span><span class="p">,</span><span class="w"> </span><span class="n">avatarModifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">tokenAnchor</span><span class="p">())</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>tokenAnchor()</code> marks where inside the row the flying copy visually starts from.</p>
+<p>Four moving parts, always used together:</p>
+<ol>
+<li><code>rememberGooeyTransferState()</code> — one state object per screen/host.</li>
+<li><code>GooeyTransferHost(state) { ... }</code> — draws the gooey overlay and in-flight tokens above
+   everything inside it; sources and targets can live anywhere inside, including inside a
+   <code>LazyColumn</code>.</li>
+<li><code>GooeySource(state, key, color, token) { content }</code> — a row/card whose <code>token</code> flies into the
+   target when tapped (or dragged).</li>
+<li><code>GooeyTarget(state) { TransferredTokens() }</code> — the destination; <code>TransferredTokens()</code> renders
+   the row of tokens that have arrived.</li>
+</ol>
+<h2 id="how-the-state-works">How the state works<a class="headerlink" href="#how-the-state-works" title="Permanent link">&para;</a></h2>
+<p><code>GooeyTransferState</code> is a bit more involved than the nav indicator / segmented control states,
+because it's coordinating <em>several</em> sources, one target, and (optionally) an in-progress drag —
+but the underlying idea is the same: <strong>the state only holds data and runs animations; your UI
+decides when things happen.</strong></p>
+<ol>
+<li><strong><code>rememberGooeyTransferState()</code></strong> creates one <code>GooeyTransferState</code> shared by every <code>GooeySource</code>
+   and the <code>GooeyTarget</code> inside the same <code>GooeyTransferHost</code>.</li>
+<li>Every <code>GooeySource</code> <strong>registers itself</strong> with the state (keyed by the <code>key</code> you pass) as soon as
+   it enters composition, and <strong>unregisters</strong> when it leaves — this is what makes it safe to put
+   sources inside a <code>LazyColumn</code>: a row that's scrolled off-screen is simply not registered until
+   it's recomposed again.</li>
+<li>Tapping a source calls <strong><code>state.transfer(key)</code></strong> internally (bound to <code>.clickable</code> for you) —
+   you don't normally call this yourself unless you're triggering a transfer from somewhere other
+   than a tap, e.g. a button elsewhere on screen.</li>
+<li>While a token is flying, it's tracked as a <code>TransferredItem</code> with its own progress animation.
+   <code>GooeyTransferHost</code> reads every in-flight item's progress each frame to build the blob shapes
+   (source blob, bridge, target blob) and to position the actual flying <code>token</code> composable on top.</li>
+<li>Once progress reaches <code>1f</code>, the token "lands" — <code>GooeyTarget</code>'s <code>TransferredTokens()</code> then draws
+   it as a resting token in its row.</li>
+<li><strong>Dragging</strong> (long-press and drag, enabled by default) runs a separate <code>DragSession</code>: the token
+   follows your finger with a gooey "neck" stretching back to the source, and on release the state
+   decides whether to commit the transfer or spring back, based on how close to the target you let
+   go and how fast you were moving (<code>FlingVelocity</code>).</li>
+</ol>
+<h3 id="state-you-can-read-and-call-yourself">State you can read and call yourself<a class="headerlink" href="#state-you-can-read-and-call-yourself" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>state.transfer(key)</code></td>
+<td>Starts (or resumes) moving a source's token into the target. Normally called for you by tapping a <code>GooeySource</code>.</td>
+</tr>
+<tr>
+<td><code>state.returnToSource(key)</code></td>
+<td>Animates a resting token back out of the target to its source, then removes it. Wired to tapping a token in <code>TransferredTokens()</code> when <code>removable = true</code> (the default).</td>
+</tr>
+<tr>
+<td><code>state.remove(key)</code></td>
+<td>Removes a token from the target instantly, with no animation — use this for things like "clear all" or restoring saved state without replaying the transfer.</td>
+</tr>
+<tr>
+<td><code>state.isTransferred(key)</code></td>
+<td><code>true</code> once that key has landed in the target. Useful for dimming/disabling a source row (this already happens automatically — see below).</td>
+</tr>
+<tr>
+<td><code>state.transferredKeys</code></td>
+<td>The current target contents, newest first — read this to know what's "in the cart" right now.</td>
+</tr>
+<tr>
+<td><code>state.isAnimating</code></td>
+<td><code>true</code> while anything (a drag or a flight) is in progress — handy to disable other interactions mid-animation.</td>
+</tr>
+</tbody>
+</table>
+<p>Note that <code>GooeySource</code> already dims itself (<code>transferredAlpha</code>) and disables its own tap/drag
+once its key is transferred, using <code>state.isTransferred(key)</code> internally — you don't need to wire
+that up by hand.</p>
+<h2 id="customizing-the-colors">Customizing the colors<a class="headerlink" href="#customizing-the-colors" title="Permanent link">&para;</a></h2>
+<p>Each <code>GooeySource</code> has its <strong>own</strong> <code>color</code> — this is what makes a per-item tint possible (e.g. one
+color per friend, per product, per category), unlike the nav indicator/segmented control which
+take one shared color for the whole host:</p>
+<div class="highlight"><pre><span></span><code><span class="n">GooeySource</span><span class="p">(</span>
+<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">,</span>
+<span class="w">    </span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">friend</span><span class="p">.</span><span class="na">id</span><span class="p">,</span>
+<span class="w">    </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">friend</span><span class="p">.</span><span class="na">tint</span><span class="p">,</span><span class="w">       </span><span class="c1">// any androidx.compose.ui.graphics.Color, per item</span>
+<span class="w">    </span><span class="n">cornerRadius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16.</span><span class="n">dp</span><span class="p">,</span>
+<span class="w">    </span><span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Avatar</span><span class="p">(</span><span class="n">friend</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">FriendRow</span><span class="p">(</span><span class="n">friend</span><span class="p">,</span><span class="w"> </span><span class="n">avatarModifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">tokenAnchor</span><span class="p">())</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Two more parameters control how color is used, both on <code>GooeyTransferHost</code>:</p>
+<ul>
+<li><code>maxTintAlpha</code> (default <code>0.55f</code>) — how strongly the bridge/blob tints toward <code>color</code> at its most
+  intense point mid-flight. Lower it for a more subtle, mostly-white bridge.</li>
+<li>On <code>GooeySource</code>, <code>transferredAlpha</code> (default <code>0.45f</code>) — the opacity the <em>source row</em> fades to
+  once its token has been transferred, so it reads as "already added" without disappearing.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">GooeyTransferHost</span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">maxTintAlpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>A per-item color is also simplest way to make sure the flying token and the row it came from read
+as "the same object" — pick it from your data (as <code>friend.tint</code> does above) or from your theme,
+e.g. <code>MaterialTheme.colorScheme.primary</code>.</p>
+<h2 id="changing-the-token-icon">Changing the token / icon<a class="headerlink" href="#changing-the-token-icon" title="Permanent link">&para;</a></h2>
+<p><code>token</code> is a plain <code>@Composable () -&gt; Unit</code> — there's no special "icon" API. It's used in two
+places automatically: as the flying copy while in transit, and as the resting item inside
+<code>TransferredTokens()</code>. Swap it for anything of a similar aspect ratio — an avatar, a product
+thumbnail, an emoji, or a Material icon:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.Icons</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.filled.Star</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material3.Icon</span>
+
+<span class="n">GooeySource</span><span class="p">(</span>
+<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">,</span>
+<span class="w">    </span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">product</span><span class="p">.</span><span class="na">id</span><span class="p">,</span>
+<span class="w">    </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">product</span><span class="p">.</span><span class="na">tint</span><span class="p">,</span>
+<span class="w">    </span><span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Icon</span><span class="p">(</span>
+<span class="w">            </span><span class="n">imageVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="na">Filled</span><span class="p">.</span><span class="na">Star</span><span class="p">,</span>
+<span class="w">            </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">product</span><span class="p">.</span><span class="na">name</span><span class="p">,</span>
+<span class="w">            </span><span class="n">tint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">Black</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ProductRow</span><span class="p">(</span><span class="n">product</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Reactify doesn't ship icons itself — add
+<code>org.jetbrains.compose.material:material-icons-extended</code> (Compose Multiplatform) or
+<code>androidx.compose.material:material-icons-extended</code> (Android-only) to your own app module if you
+want Material icons instead of emoji/avatars.</p>
+<p>Two details that matter when swapping <code>token</code>:</p>
+<ul>
+<li>Whatever you put in <code>token</code> is measured at the <strong>source row's</strong> size the first time it's drawn,
+  then scaled as it flies — so keep it roughly square (like an avatar or icon) rather than a wide
+  piece of text, or it will stretch oddly mid-flight.</li>
+<li><code>Modifier.tokenAnchor()</code>, applied inside the source's <code>content</code>, marks exactly where the flying
+  copy visually starts from (e.g. right on top of a small avatar inside a bigger row) — omit it and
+  the whole row's bounds are used as the starting point instead.</li>
+</ul>
+<p><code>TransferredTokens()</code> itself (called inside <code>GooeyTarget</code>) takes its own styling parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="n">TransferredTokens</span><span class="p">(</span>
+<span class="w">    </span><span class="n">tokenSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">32.</span><span class="n">dp</span><span class="p">,</span><span class="w">   </span><span class="c1">// size each resting token is drawn at</span>
+<span class="w">    </span><span class="n">spacing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6.</span><span class="n">dp</span><span class="p">,</span><span class="w">      </span><span class="c1">// gap between resting tokens</span>
+<span class="w">    </span><span class="n">removable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">    </span><span class="c1">// tap a resting token to send it back to its source</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2 id="pairing-with-a-notch-shape">Pairing with a notch shape<a class="headerlink" href="#pairing-with-a-notch-shape" title="Permanent link">&para;</a></h2>
+<p>Pair the target with a <code>GooeyNotchShape</code> to make the card's background open a matching notch as
+tokens arrive — this is what makes the card look like it's "swallowing" the token:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">notchRadius</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">animateDpAsState</span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">collapsed</span><span class="p">)</span><span class="w"> </span><span class="m">30.</span><span class="n">dp</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="m">0.</span><span class="n">dp</span><span class="p">)</span>
+
+<span class="n">GooeyTarget</span><span class="p">(</span>
+<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">,</span>
+<span class="w">    </span><span class="n">cornerRadius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">28.</span><span class="n">dp</span><span class="p">,</span>
+<span class="w">    </span><span class="n">notchRadius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">notchRadius</span><span class="p">,</span>
+<span class="w">    </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">CardYellow</span><span class="p">,</span><span class="w"> </span><span class="n">GooeyNotchShape</span><span class="p">(</span><span class="n">cornerRadius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">28.</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">notchRadius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">notchRadius</span><span class="p">)),</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">TransferredTokens</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>notchRadius</code> must be passed to <strong>both</strong> places — <code>GooeyTarget</code> (so the gooey overlay bends around
+the notch) and <code>GooeyNotchShape</code> (so the background actually has a matching concave cutout) — and
+<code>cornerRadius</code> must match between them too. Animate <code>notchRadius</code> yourself (as above, with
+<code>animateDpAsState</code> or a <code>spring</code>); the shape and overlay just follow whatever value you give them.</p>
+<h2 id="tap-vs-drag">Tap vs. drag<a class="headerlink" href="#tap-vs-drag" title="Permanent link">&para;</a></h2>
+<p>Both are enabled by default on every <code>GooeySource</code>:</p>
+<ul>
+<li><strong>Tap</strong> always transfers the token immediately.</li>
+<li><strong>Long-press, then drag</strong> picks the token up and follows your finger, stretching a gooey neck
+  back to the source; releasing it near the target (or flinging it towards the target fast enough)
+  commits the transfer, otherwise it springs back. The long-press requirement keeps this from
+  fighting with scrolling in a <code>LazyColumn</code>.</li>
+</ul>
+<p>Disable drag (keep tap-to-transfer only) with <code>dragEnabled = false</code>, or disable both interactions
+with <code>enabled = false</code> (e.g. while something else is loading).</p>
+<h2 id="parameters-reference">Parameters reference<a class="headerlink" href="#parameters-reference" title="Permanent link">&para;</a></h2>
+<p><strong><code>rememberGooeyTransferState</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>animationSpec</code></td>
+<td><code>tween(1100ms, LinearEasing)</code></td>
+<td>Drives the master flight progress (0→1). Keep it linear — the grow/stretch/pinch shape itself is already baked into the choreography, not into easing.</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>GooeyTransferHost</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>state</code></td>
+<td>—</td>
+<td>The shared <code>GooeyTransferState</code>.</td>
+</tr>
+<tr>
+<td><code>renderer</code></td>
+<td><code>GooeyRenderers.auto()</code></td>
+<td>See <a href="../renderers/">Choosing a Renderer</a>.</td>
+</tr>
+<tr>
+<td><code>smoothness</code></td>
+<td><code>24.dp</code></td>
+<td>How far the gooey blend reaches around the bridge/blobs.</td>
+</tr>
+<tr>
+<td><code>maxTintAlpha</code></td>
+<td><code>0.55f</code></td>
+<td>Maximum tint intensity of the bridge/blob toward the source's <code>color</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>GooeySource</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+<td>—</td>
+<td>Identifies this source; must be stable and unique (e.g. an id), same idea as <code>LazyColumn</code>'s <code>key</code>.</td>
+</tr>
+<tr>
+<td><code>color</code></td>
+<td>—</td>
+<td>Tint for this source's gooey overlay.</td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td>—</td>
+<td>The flying/resting content — see "Changing the token / icon" above.</td>
+</tr>
+<tr>
+<td><code>cornerRadius</code></td>
+<td><code>16.dp</code></td>
+<td>Must match the visual corner radius of <code>content</code>'s background, or the blob won't line up with the row.</td>
+</tr>
+<tr>
+<td><code>enabled</code></td>
+<td><code>true</code></td>
+<td>Disables both tap and drag when <code>false</code>.</td>
+</tr>
+<tr>
+<td><code>dragEnabled</code></td>
+<td><code>true</code></td>
+<td>Disables long-press-drag while keeping tap-to-transfer.</td>
+</tr>
+<tr>
+<td><code>transferredAlpha</code></td>
+<td><code>0.45f</code></td>
+<td>Opacity the row fades to once transferred.</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>GooeyTarget</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cornerRadius</code></td>
+<td><code>16.dp</code></td>
+<td>Must match the visual corner radius of <code>content</code>'s background.</td>
+</tr>
+<tr>
+<td><code>notchRadius</code></td>
+<td><code>0.dp</code></td>
+<td>Current radius of a paired <code>GooeyNotchShape</code> notch, if any — see "Pairing with a notch shape".</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tips-troubleshooting">Tips &amp; troubleshooting<a class="headerlink" href="#tips-troubleshooting" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tokens don't fly anywhere</p>
+<p><code>GooeyTransferHost</code> must be an ancestor of both the <code>GooeySource</code>s and the <code>GooeyTarget</code> — it's
+the thing that actually draws the overlay. A <code>GooeySource</code> or <code>GooeyTarget</code> outside the host has
+nowhere to render into.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">The flying token is squashed or stretched oddly</p>
+<p>Give <code>token</code> a roughly square aspect ratio, and double-check <code>cornerRadius</code> on <code>GooeySource</code> /
+<code>GooeyTarget</code> matches the real corner radius of your row/card backgrounds — a mismatch here is
+the most common cause of the blob looking visually "off" from the content underneath it.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">A transfer started before a row scrolled off-screen looks wrong when it lands</p>
+<p>This is expected to self-correct: in-flight transfers re-read the source's live bounds each
+frame, so they follow the row while it's still composed; once it scrolls away, the last known
+bounds are used for the rest of the flight, and landing always targets the target's current
+bounds, which doesn't move.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.tabs.link", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+    
+  </body>
+</html>
