@@ -37,8 +37,14 @@ class SkslRendererParityTest {
     @Test fun progressNeck() = check("progressNeck", ParityScenes.progressNeckScene())
     @Test fun stepper() = check("stepper", ParityScenes.stepperScene())
     @Test fun pull() = check("pull", ParityScenes.pullScene())
+    @Test fun slider() = check("slider", ParityScenes.sliderScene())
+    @Test fun badge() = check("badge", ParityScenes.badgeScene())
+    @Test fun chipGroup() = check("chipGroup", ParityScenes.chipGroupScene())
+    @Test fun cutout() = check("cutout", ParityScenes.cutoutScene())
+    @Test fun dropZone() = check("dropZone", ParityScenes.dropZoneScene())
+    @Test fun fabMenu() = check("fabMenu", ParityScenes.fabMenuScene())
 
-    private fun check(name: String, scene: GooeyScene) {
+    private fun check(name: String, scene: GooeyScene, iouFloor: Float = 0.99f) {
         val renderer = GooeyRenderers.sksl()
         val bitmap = ImageBitmap(width, height)
         val canvas = Canvas(bitmap)
@@ -57,7 +63,7 @@ class SkslRendererParityTest {
             result.maxErrorPx <= tolerancePx,
             "$name: pixel ${result.maxErrorPx}px from the contour misclassified (tolerance ${tolerancePx}px), wrong=${result.wrongPixels}",
         )
-        assertTrue(result.iou >= 0.99f, "$name: IoU ${result.iou} too low")
+        assertTrue(result.iou >= iouFloor, "$name: IoU ${result.iou} too low")
     }
 
     private class Result(val maxErrorPx: Float, val wrongPixels: Int, val iou: Float)

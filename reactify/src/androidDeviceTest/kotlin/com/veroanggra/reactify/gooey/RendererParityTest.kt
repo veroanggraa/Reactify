@@ -64,6 +64,24 @@ class RendererParityTest {
     // (and a far longer contour) than the others; sub-pixel grid noise along that contour adds up
     // to a slightly lower IoU even though maxError stays near zero. 0.98 still catches a real miss.
     @Test fun pull_path() = checkPath("pull", ParityScenes.pullScene(), iouFloor = 0.98f)
+    @Test fun slider_agsl() = checkAgsl("slider", ParityScenes.sliderScene())
+    // Thumb + thinning neck + bubble is a thin, branching contour relative to its area; same
+    // near-zero maxError as pull, slightly lower IoU for the same reason.
+    @Test fun slider_path() = checkPath("slider", ParityScenes.sliderScene(), iouFloor = 0.98f)
+    @Test fun badge_agsl() = checkAgsl("badge", ParityScenes.badgeScene())
+    // A ~16px-radius circle has a small total area, so the same few boundary-grid pixels of noise
+    // that other scenes absorb easily make up a much bigger fraction of it (maxError stays <1px).
+    @Test fun badge_path() = checkPath("badge", ParityScenes.badgeScene(), iouFloor = 0.9f)
+    @Test fun chipGroup_agsl() = checkAgsl("chipGroup", ParityScenes.chipGroupScene())
+    @Test fun chipGroup_path() = checkPath("chipGroup", ParityScenes.chipGroupScene())
+    @Test fun cutout_agsl() = checkAgsl("cutout", ParityScenes.cutoutScene())
+    @Test fun cutout_path() = checkPath("cutout", ParityScenes.cutoutScene())
+    @Test fun dropZone_agsl() = checkAgsl("dropZone", ParityScenes.dropZoneScene())
+    @Test fun dropZone_path() = checkPath("dropZone", ParityScenes.dropZoneScene())
+    @Test fun fabMenu_agsl() = checkAgsl("fabMenu", ParityScenes.fabMenuScene())
+    // Several small circles joined by thin, partly-retracted necks at mid-spawn: same thin-contour
+    // IoU sensitivity as slider, maxError stays <1px.
+    @Test fun fabMenu_path() = checkPath("fabMenu", ParityScenes.fabMenuScene(), iouFloor = 0.97f)
 
     private fun checkAgsl(name: String, scene: GooeyScene) {
         assumeTrue("AGSL needs API 33+", Build.VERSION.SDK_INT >= 33)

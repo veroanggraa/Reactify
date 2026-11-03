@@ -26,7 +26,10 @@ import androidx.compose.ui.unit.sp
 import com.veroanggra.reactify.gooey.GooeyRenderer
 import com.veroanggra.reactify.gooey.GooeyRenderers
 
-public enum class Demo { List, Cart, BottomNav, Segmented, Progress, Stepper, PullToRefresh }
+public enum class Demo {
+    List, Cart, BottomNav, Segmented, Progress, Stepper, PullToRefresh,
+    Control, Badge, ChipGroup, Cutout, DropZone, FabMenu,
+}
 
 /** Entry point shared by the Android (`app`) and iOS (`iosApp`) sample shells. */
 @Composable
@@ -45,6 +48,12 @@ public fun SampleApp(
             Demo.Progress -> ProgressDemoScreen(renderer = renderer)
             Demo.Stepper -> StepperDemoScreen(renderer = renderer)
             Demo.PullToRefresh -> PullToRefreshDemoScreen(renderer = renderer)
+            Demo.Control -> ControlDemoScreen(renderer = renderer)
+            Demo.Badge -> BadgeDemoScreen(renderer = renderer)
+            Demo.ChipGroup -> ChipGroupDemoScreen(renderer = renderer)
+            Demo.Cutout -> CutoutDemoScreen()
+            Demo.DropZone -> DropZoneDemoScreen(renderer = renderer)
+            Demo.FabMenu -> FabMenuDemoScreen(renderer = renderer)
         }
         DemoSwitcher(
             selected = demo,
@@ -85,6 +94,12 @@ private fun DemoSwitcher(selected: Demo, onSelect: (Demo) -> Unit, modifier: Mod
                         Demo.Progress -> "Progress"
                         Demo.Stepper -> "Stepper"
                         Demo.PullToRefresh -> "Pull to Refresh"
+                        Demo.Control -> "Switch & Slider"
+                        Demo.Badge -> "Badge"
+                        Demo.ChipGroup -> "Chip Group"
+                        Demo.Cutout -> "FAB Cutout"
+                        Demo.DropZone -> "Drop Zone"
+                        Demo.FabMenu -> "FAB Speed-dial"
                     },
                     color = if (isSelected) Color.Black else Color.White,
                     fontSize = 12.sp,

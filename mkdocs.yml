@@ -17,6 +17,12 @@ nav:
   - 'Progress Indicator': progress.md
   - 'Stepper': stepper.md
   - 'Pull to Refresh': pull-to-refresh.md
+  - 'Switch & Slider': switch-slider.md
+  - 'Badge': badge.md
+  - 'Chip Group': chip-group.md
+  - 'Drop Zone': drop-zone.md
+  - 'FAB Speed-dial': fab-speed-dial.md
+  - 'FAB Cutout': fab-cutout.md
   - 'Choosing a Renderer': renderers.md
   - 'Sample App': sample-app.md
   - 'Changelog': CHANGELOG.md
