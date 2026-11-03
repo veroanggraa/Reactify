@@ -41,7 +41,11 @@ internal class PathGooeyRenderer(private val cellSize: Dp = 2.5.dp) : GooeyRende
         scene.blobs.groupBy { it.color }.forEach { (color, group) ->
             // Identical shapes would swell each other under smooth-min; keep one copy.
             val blobs = group.distinctBy { if (it is Blob.RoundRect) it.rect to it.cornerRadius else it }
-            val area = blobs.boundsOf().inflate(scene.smoothness + cell).intersect(canvas)
+            // Intersecting with the bare canvas would let the tracer's forced-outside border cut
+            // through a blob that's still truly inside right at the edge (e.g. a full-bleed bar
+            // with no visible rounded ends); padding canvas by the same blend buffer first keeps
+            // that border outside the blob's real boundary while still bounding the trace cost.
+            val area = blobs.boundsOf().inflate(scene.smoothness + cell).intersect(canvas.inflate(scene.smoothness + cell))
             if (area.isEmpty) return@forEach
             val field = GooeyField(blobs, scene.cutouts, scene.smoothness)
             val loops = tracer.trace(field, area, cell)
