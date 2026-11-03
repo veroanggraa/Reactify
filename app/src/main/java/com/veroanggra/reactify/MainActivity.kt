@@ -21,6 +21,9 @@ class MainActivity : ComponentActivity() {
         val initialDemo = when (intent.getStringExtra("screen")) {
             "nav" -> Demo.BottomNav
             "segment" -> Demo.Segmented
+            "progress" -> Demo.Progress
+            "stepper" -> Demo.Stepper
+            "refresh" -> Demo.PullToRefresh
             else -> Demo.List
         }
         setContent {

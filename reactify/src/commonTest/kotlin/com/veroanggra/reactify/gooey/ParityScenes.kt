@@ -3,6 +3,9 @@ package com.veroanggra.reactify.gooey
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import com.veroanggra.reactify.progress.linearProgressBlobs
+import com.veroanggra.reactify.refresh.pullBlobs
+import com.veroanggra.reactify.stepper.stepperBlobs
 
 /**
  * Fixed scenes shared by every renderer's parity test (one per platform shader). Keeping them in
@@ -67,6 +70,28 @@ internal object ParityScenes {
         blobs = listOf(
             Blob.Circle(Offset(140f, 360f), 60f, Color.White),
             Blob.Circle(Offset(270f, 360f), 50f, Color.White),
+        ),
+        smoothness = smoothness,
+    )
+
+    fun progressNeckScene() = GooeyScene(
+        blobs = linearProgressBlobs(Rect(40f, 280f, 360f, 320f), fillFraction = 0.3f, headFraction = 0.7f, color = Color.White),
+        smoothness = 20f, // 48f swallows the 16px-thick neck
+    )
+
+    fun stepperScene() = GooeyScene(
+        blobs = stepperBlobs(
+            progress = 0.45f, from = 1, to = 2,
+            steps = listOf(50f, 150f, 250f, 350f).map { Rect(Offset(it, 300f), 22f) },
+            dotRadius = 22f, color = Color.White,
+        ),
+        smoothness = smoothness,
+    )
+
+    fun pullScene() = GooeyScene(
+        blobs = pullBlobs(
+            pull = 150f, threshold = 200f, width = 400f, dropRadius = 36f,
+            neckScale = 1f, dropScale = 1f, color = Color.White,
         ),
         smoothness = smoothness,
     )
