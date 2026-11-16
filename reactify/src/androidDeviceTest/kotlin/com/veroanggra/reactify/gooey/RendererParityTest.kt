@@ -57,6 +57,10 @@ class RendererParityTest {
     @Test fun merge_path() = checkPath("merge", ParityScenes.mergeScene())
     @Test fun progressNeck_agsl() = checkAgsl("progressNeck", ParityScenes.progressNeckScene())
     @Test fun progressNeck_path() = checkPath("progressNeck", ParityScenes.progressNeckScene())
+    @Test fun circularProgress_agsl() = checkAgsl("circularProgress", ParityScenes.circularProgressScene())
+    @Test fun circularProgress_path() = checkPath("circularProgress", ParityScenes.circularProgressScene())
+    @Test fun gauge_agsl() = checkAgsl("gauge", ParityScenes.gaugeScene())
+    @Test fun gauge_path() = checkPath("gauge", ParityScenes.gaugeScene())
     @Test fun stepper_agsl() = checkAgsl("stepper", ParityScenes.stepperScene())
     @Test fun stepper_path() = checkPath("stepper", ParityScenes.stepperScene())
     @Test fun pull_agsl() = checkAgsl("pull", ParityScenes.pullScene())
@@ -82,6 +86,10 @@ class RendererParityTest {
     // Several small circles joined by thin, partly-retracted necks at mid-spawn: same thin-contour
     // IoU sensitivity as slider, maxError stays <1px.
     @Test fun fabMenu_path() = checkPath("fabMenu", ParityScenes.fabMenuScene(), iouFloor = 0.97f)
+    @Test fun polygon_agsl() = checkAgsl("polygon", ParityScenes.polygonScene())
+    // The arrow's concave vertex is a sharp reflex angle, a harder case for the marching-squares
+    // grid than the smooth curves elsewhere; maxError (2.5px) stays inside the 3px tolerance.
+    @Test fun polygon_path() = checkPath("polygon", ParityScenes.polygonScene(), iouFloor = 0.97f)
 
     private fun checkAgsl(name: String, scene: GooeyScene) {
         assumeTrue("AGSL needs API 33+", Build.VERSION.SDK_INT >= 33)

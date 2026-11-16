@@ -4,6 +4,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Dp
@@ -48,6 +49,14 @@ private object PlainGooeyRenderer : GooeyRenderer {
                     end = blob.end,
                     strokeWidth = blob.radius * 2f,
                     cap = StrokeCap.Round,
+                )
+                is Blob.Polygon -> drawPath(
+                    path = Path().apply {
+                        moveTo(blob.vertices[0].x, blob.vertices[0].y)
+                        for (i in 1 until blob.vertices.size) lineTo(blob.vertices[i].x, blob.vertices[i].y)
+                        close()
+                    },
+                    color = blob.color,
                 )
             }
         }

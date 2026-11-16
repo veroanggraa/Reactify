@@ -20,7 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
@@ -115,11 +117,15 @@ public fun GooeyLinearProgress(
 }
 
 /**
- * Determinate circular progress: an arc grows clockwise from 12 o'clock with a round head that
+ * Determinate circular progress: an arc grows clockwise from [startAngleDeg] with a round head that
  * runs ahead along the ring when [progress] jumps, trailing a neck the arc then catches up with.
  *
  * @param size outer diameter, head included.
  * @param strokeWidth thickness of the ring; the head is 1.25× as wide.
+ * @param startAngleDeg where the ring starts, clockwise from 12 o'clock.
+ * @param totalAngleDeg how much of the circle the ring spans. 360 (the default) is a full ring;
+ * anything less turns this into a gauge/dial with a gap, e.g. `startAngleDeg = 225f` and
+ * `totalAngleDeg = 270f` for a classic dial that opens at the bottom.
  */
 @Composable
 public fun GooeyCircularProgress(
@@ -130,6 +136,8 @@ public fun GooeyCircularProgress(
     strokeWidth: Dp = GooeyProgressDefaults.StrokeWidth,
     trackColor: Color = color.copy(alpha = 0.15f),
     smoothness: Dp = GooeyProgressDefaults.Smoothness,
+    startAngleDeg: Float = 0f,
+    totalAngleDeg: Float = 360f,
     renderer: GooeyRenderer = remember { GooeyRenderers.auto() },
 ) {
     val target = progress.coerceIn(0f, 1f)
@@ -139,8 +147,11 @@ public fun GooeyCircularProgress(
     Canvas(modifier.size(size)) {
         val stroke = strokeWidth.toPx()
         val radius = ringRadius(stroke)
-        drawCircle(trackColor, radius, center, style = Stroke(stroke))
-        val scene = GooeyScene(circularProgressBlobs(center, radius, stroke, fill, head, color), smoothness = smoothnessPx)
+        drawCircularTrack(radius, stroke, startAngleDeg, totalAngleDeg, trackColor)
+        val scene = GooeyScene(
+            circularProgressBlobs(center, radius, stroke, fill, head, color, startAngleDeg, totalAngleDeg),
+            smoothness = smoothnessPx,
+        )
         with(renderer) { draw(scene) }
     }
 }
@@ -182,3 +193,20 @@ private fun DrawScope.drawLinearTrack(bounds: Rect, color: Color) {
 
 /** Ring centre line that keeps the head (1.25× the stroke) inside the canvas. */
 private fun DrawScope.ringRadius(stroke: Float): Float = size.minDimension / 2f - stroke / 2f * HEAD_SCALE
+
+/** Plain track under the liquid ring: a full circle, or an open arc when [totalAngleDeg] < 360. */
+private fun DrawScope.drawCircularTrack(radius: Float, stroke: Float, startAngleDeg: Float, totalAngleDeg: Float, color: Color) {
+    if (totalAngleDeg >= 360f) {
+        drawCircle(color, radius, center, style = Stroke(stroke))
+    } else {
+        drawArc(
+            color = color,
+            startAngle = startAngleDeg - 90f,
+            sweepAngle = totalAngleDeg.coerceIn(0f, 360f),
+            useCenter = false,
+            topLeft = center - Offset(radius, radius),
+            size = Size(radius * 2f, radius * 2f),
+            style = Stroke(stroke, cap = StrokeCap.Round),
+        )
+    }
+}

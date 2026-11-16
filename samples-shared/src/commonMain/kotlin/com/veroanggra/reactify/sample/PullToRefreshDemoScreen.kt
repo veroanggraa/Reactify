@@ -19,7 +19,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,6 +42,7 @@ fun PullToRefreshDemoScreen(
     var isRefreshing by remember { mutableStateOf(false) }
     var messages by remember { mutableStateOf(List(20) { "Message ${it + 1}" }) }
     var fetched by remember { mutableStateOf(0) }
+    val colors = LocalDemoColors.current
 
     LaunchedEffect(isRefreshing) {
         if (!isRefreshing) return@LaunchedEffect
@@ -49,21 +52,34 @@ fun PullToRefreshDemoScreen(
         isRefreshing = false
     }
 
-    Column(modifier.fillMaxSize().background(Color.Black).systemBarsPadding()) {
-        Text(
-            "Inbox",
-            color = Color.White,
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.padding(start = 24.dp, top = 16.dp, end = 160.dp, bottom = 8.dp),
-        )
+    Column(
+        modifier
+            .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    0f to lerp(AccentSky, colors.background, 0.86f),
+                    0.25f to colors.background,
+                    1f to colors.background,
+                ),
+            )
+            .systemBarsPadding(),
+    ) {
+        Column(Modifier.padding(start = 24.dp, top = 88.dp, end = 24.dp, bottom = 20.dp)) {
+            Text("Inbox", color = colors.onBackground, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)
+            Text(
+                "Pull down to fetch new messages.",
+                color = colors.onBackgroundMuted,
+                fontSize = 13.sp,
+                modifier = Modifier.padding(top = 6.dp),
+            )
+        }
         GooeyPullToRefresh(
             state = state,
             isRefreshing = isRefreshing,
             onRefresh = { isRefreshing = true },
             color = AccentSky,
             renderer = renderer,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.weight(1f).fillMaxWidth(),
         ) {
             LazyColumn(
                 Modifier.fillMaxSize(),
@@ -74,10 +90,10 @@ fun PullToRefreshDemoScreen(
                         Modifier
                             .fillMaxWidth()
                             .padding(vertical = 4.dp)
-                            .background(Color.White.copy(alpha = 0.08f), RoundedCornerShape(14.dp))
+                            .background(colors.surface, RoundedCornerShape(14.dp))
                             .padding(horizontal = 16.dp, vertical = 14.dp),
                     ) {
-                        Text(message, color = Color.White, fontSize = 14.sp)
+                        Text(message, color = colors.onBackground, fontSize = 14.sp)
                     }
                 }
             }

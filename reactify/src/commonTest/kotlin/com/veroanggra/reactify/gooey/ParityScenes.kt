@@ -8,6 +8,7 @@ import com.veroanggra.reactify.chip.GooeyChipGroupState
 import com.veroanggra.reactify.control.sliderBlobs
 import com.veroanggra.reactify.fab.fabMenuBlobs
 import com.veroanggra.reactify.list.dropZoneBlobs
+import com.veroanggra.reactify.progress.circularProgressBlobs
 import com.veroanggra.reactify.progress.linearProgressBlobs
 import com.veroanggra.reactify.refresh.pullBlobs
 import com.veroanggra.reactify.stepper.stepperBlobs
@@ -84,6 +85,23 @@ internal object ParityScenes {
         smoothness = 20f, // 48f swallows the 16px-thick neck
     )
 
+    fun circularProgressScene() = GooeyScene(
+        blobs = circularProgressBlobs(
+            center = Offset(200f, 200f), radius = 80f, stroke = 16f,
+            sweepFraction = 0.35f, headFraction = 0.65f, color = Color.White,
+        ),
+        smoothness = 20f, // 48f swallows the 16px-thick neck, same as progressNeckScene
+    )
+
+    fun gaugeScene() = GooeyScene(
+        blobs = circularProgressBlobs(
+            center = Offset(200f, 200f), radius = 80f, stroke = 16f,
+            sweepFraction = 0.6f, headFraction = 0.9f, color = Color.White,
+            startAngleDeg = 225f, totalAngleDeg = 270f,
+        ),
+        smoothness = 20f, // same budget as circularProgressScene for a 16px-thick neck
+    )
+
     fun stepperScene() = GooeyScene(
         blobs = stepperBlobs(
             progress = 0.45f, from = 1, to = 2,
@@ -133,6 +151,21 @@ internal object ParityScenes {
         smoothness = 16f,
     )
 
+    fun polygonScene() = GooeyScene(
+        blobs = listOf(
+            // A concave chevron/arrow — exercises the winding-number test, not just a convex hull.
+            Blob.Polygon(
+                vertices = listOf(
+                    Offset(40f, 260f), Offset(120f, 260f), Offset(120f, 230f), Offset(180f, 280f),
+                    Offset(120f, 330f), Offset(120f, 300f), Offset(40f, 300f),
+                ),
+                color = Color.White,
+            ),
+            Blob.Circle(Offset(220f, 280f), 25f, Color.White),
+        ),
+        smoothness = 20f,
+    )
+
     fun cutoutScene() = GooeyScene(
         blobs = listOf(Blob.RoundRect(Rect(0f, 0f, 400f, 100f), 0f, Color.White)),
         cutouts = listOf(Blob.Circle(Offset(200f, 0f), 36f, Color.White)),
@@ -154,5 +187,6 @@ internal object ParityScenes {
         is Blob.RoundRect -> copy(color = Color.White)
         is Blob.Circle -> copy(color = Color.White)
         is Blob.Capsule -> copy(color = Color.White)
+        is Blob.Polygon -> copy(color = Color.White)
     }
 }

@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
             "cutout" -> Demo.Cutout
             "dropzone" -> Demo.DropZone
             "fab" -> Demo.FabMenu
+            "polygon" -> Demo.Polygon
             else -> Demo.List
         }
         setContent {

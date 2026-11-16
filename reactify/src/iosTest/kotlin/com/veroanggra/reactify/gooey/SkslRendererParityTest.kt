@@ -35,6 +35,8 @@ class SkslRendererParityTest {
     @Test fun notch() = check("notch", ParityScenes.notchScene())
     @Test fun merge() = check("merge", ParityScenes.mergeScene())
     @Test fun progressNeck() = check("progressNeck", ParityScenes.progressNeckScene())
+    @Test fun circularProgress() = check("circularProgress", ParityScenes.circularProgressScene())
+    @Test fun gauge() = check("gauge", ParityScenes.gaugeScene())
     @Test fun stepper() = check("stepper", ParityScenes.stepperScene())
     @Test fun pull() = check("pull", ParityScenes.pullScene())
     @Test fun slider() = check("slider", ParityScenes.sliderScene())
@@ -43,6 +45,7 @@ class SkslRendererParityTest {
     @Test fun cutout() = check("cutout", ParityScenes.cutoutScene())
     @Test fun dropZone() = check("dropZone", ParityScenes.dropZoneScene())
     @Test fun fabMenu() = check("fabMenu", ParityScenes.fabMenuScene())
+    @Test fun polygon() = check("polygon", ParityScenes.polygonScene())
 
     private fun check(name: String, scene: GooeyScene, iouFloor: Float = 0.99f) {
         val renderer = GooeyRenderers.sksl()
