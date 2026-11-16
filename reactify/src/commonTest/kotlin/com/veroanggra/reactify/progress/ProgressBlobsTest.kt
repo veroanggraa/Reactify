@@ -129,6 +129,44 @@ class ProgressBlobsTest {
     }
 
     @Test
+    fun gaugeDefaultsMatchFullCircleBehavior() {
+        val center = Offset(50f, 50f)
+        val default = circularProgressBlobs(center, 40f, 8f, 0.4f, 0.75f, Color.Red)
+        val explicit = circularProgressBlobs(center, 40f, 8f, 0.4f, 0.75f, Color.Red, startAngleDeg = 0f, totalAngleDeg = 360f)
+        assertEquals(default, explicit)
+    }
+
+    @Test
+    fun gaugeConstrainsSweepToACustomAngleRange() {
+        val center = Offset(50f, 50f)
+        val radius = 40f
+        val startAngleDeg = 225f
+        val totalAngleDeg = 270f
+        val blobs = circularProgressBlobs(
+            center, radius, 8f, sweepFraction = 1f, headFraction = 1f, Color.Red,
+            startAngleDeg = startAngleDeg, totalAngleDeg = totalAngleDeg,
+        )
+        val head = blobs.filterIsInstance<Blob.Circle>().single()
+        val expectedHead = pointOnRing(center, radius, startAngleDeg + totalAngleDeg)
+        assertTrue((head.center - expectedHead).getDistance() <= 0.01f, "${head.center} vs $expectedHead")
+        // Every arc segment stays within the gauge's angular span (measured clockwise from
+        // startAngleDeg, wrapping through 0/360), never spilling into the gap.
+        blobs.filterIsInstance<Blob.Capsule>().flatMap { listOf(it.start, it.end) }.forEach { p ->
+            val deg = angleOfPoint(center, p)
+            val relative = ((deg - startAngleDeg) % 360f + 360f) % 360f
+            assertTrue(relative <= totalAngleDeg + 0.5f, "$p at ${deg}° ($relative° into the sweep) falls outside the $totalAngleDeg° span")
+        }
+    }
+
+    private fun angleOfPoint(center: Offset, p: Offset): Float {
+        val dx = p.x - center.x
+        val dy = p.y - center.y
+        var deg = kotlin.math.atan2(dy, dx) * (180f / kotlin.math.PI.toFloat()) + 90f
+        if (deg < 0f) deg += 360f
+        return deg
+    }
+
+    @Test
     fun indeterminateCircularLoopsSeamlessly() {
         val center = Offset(50f, 50f)
         val a = indeterminateCircularBlobs(center, 40f, 8f, 0f, Color.Red).map { (it as Blob.Circle).center }

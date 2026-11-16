@@ -35,6 +35,8 @@ class SkslRendererParityTest {
     @Test fun notch() = check("notch", ParityScenes.notchScene())
     @Test fun merge() = check("merge", ParityScenes.mergeScene())
     @Test fun progressNeck() = check("progressNeck", ParityScenes.progressNeckScene())
+    @Test fun circularProgress() = check("circularProgress", ParityScenes.circularProgressScene())
+    @Test fun gauge() = check("gauge", ParityScenes.gaugeScene())
     @Test fun stepper() = check("stepper", ParityScenes.stepperScene())
     @Test fun pull() = check("pull", ParityScenes.pullScene())
     @Test fun slider() = check("slider", ParityScenes.sliderScene())

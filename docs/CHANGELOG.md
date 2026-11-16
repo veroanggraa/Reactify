@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Progress indicators** — `GooeyLinearProgress`, `GooeyCircularProgress`: determinate and
   indeterminate liquid progress bars and rings, with a round head that races ahead and a neck
-  that stretches behind it.
+  that stretches behind it. `GooeyCircularProgress`'s determinate overload also takes
+  `startAngleDeg`/`totalAngleDeg` to open a gauge/dial with a gap instead of a full ring.
 - **Stepper** — `GooeyStepperHost`, `Modifier.gooeyStep`: a liquid dot that bridges between steps
   as progress advances.
 - **Pull to Refresh** — `GooeyPullToRefresh`: a drop pulled out of the top edge on a thinning

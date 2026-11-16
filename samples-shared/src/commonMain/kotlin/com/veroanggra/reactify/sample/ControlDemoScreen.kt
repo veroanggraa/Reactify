@@ -1,14 +1,10 @@
 package com.veroanggra.reactify.sample
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,35 +33,35 @@ fun ControlDemoScreen(
     var checked by remember { mutableStateOf(true) }
     var value by remember { mutableFloatStateOf(0.4f) }
 
-    Column(
-        modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .systemBarsPadding()
-            .padding(24.dp),
+    DemoScaffold(
+        title = "Switch & Slider",
+        subtitle = "Everyday controls with a soft, liquid motion.",
+        accent = ControlMint,
+        modifier = modifier,
     ) {
-        Spacer(Modifier.height(48.dp))
+        DemoCard {
+            DemoSectionLabel("Switch")
+            Row(Modifier.padding(top = 14.dp), verticalAlignment = Alignment.CenterVertically) {
+                GooeySwitch(checked = checked, onCheckedChange = { checked = it }, color = ControlMint, renderer = renderer)
+                Text(
+                    if (checked) "On" else "Off",
+                    color = LocalDemoColors.current.onBackground,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(start = 16.dp),
+                )
+            }
 
-        Text("Switch", color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Medium)
-        Row(Modifier.padding(top = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-            GooeySwitch(checked = checked, onCheckedChange = { checked = it }, color = ControlMint, renderer = renderer)
-            Text(if (checked) "On" else "Off", color = Color.White, modifier = Modifier.padding(start = 16.dp))
+            Spacer(Modifier.height(32.dp))
+
+            DemoSectionLabel("Slider")
+            GooeySlider(
+                value = value,
+                onValueChange = { value = it },
+                color = ControlMint,
+                renderer = renderer,
+                modifier = Modifier.padding(top = 18.dp).fillMaxWidth(),
+                label = { Text("${(value * 100).toInt()}", color = Color.Black, fontSize = 12.sp, fontWeight = FontWeight.Bold) },
+            )
         }
-
-        Text(
-            "Slider",
-            color = Color.White,
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.padding(top = 40.dp),
-        )
-        GooeySlider(
-            value = value,
-            onValueChange = { value = it },
-            color = ControlMint,
-            renderer = renderer,
-            modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
-            label = { Text("${(value * 100).toInt()}", color = Color.Black, fontSize = 12.sp, fontWeight = FontWeight.Bold) },
-        )
     }
 }

@@ -87,9 +87,11 @@ internal fun indeterminateLinearBlobs(bounds: Rect, t: Float, color: Color): Lis
 }
 
 /**
- * Determinate ring: an arc of capsules clockwise from 12 o'clock to [sweepFraction] of a turn, a
- * round head at [headFraction], and a necking thread along the ring whenever the head leads.
- * [radius] is the ring's centre line; blobs reach `radius + stroke / 2 * HEAD_SCALE` from [center].
+ * Determinate ring: an arc of capsules clockwise from [startAngleDeg] to [sweepFraction] of
+ * [totalAngleDeg], a round head at [headFraction], and a necking thread along the ring whenever
+ * the head leads. [radius] is the ring's centre line; blobs reach `radius + stroke / 2 * HEAD_SCALE`
+ * from [center]. A full ring ([totalAngleDeg] = 360, the default) starts at 12 o'clock; a smaller
+ * [totalAngleDeg] turns this into a gauge/dial that only sweeps part of the circle.
  */
 internal fun circularProgressBlobs(
     center: Offset,
@@ -98,12 +100,15 @@ internal fun circularProgressBlobs(
     sweepFraction: Float,
     headFraction: Float,
     color: Color,
+    startAngleDeg: Float = 0f,
+    totalAngleDeg: Float = 360f,
 ): List<Blob> {
     val r = stroke / 2f
-    val sweepDeg = 360f * sweepFraction.coerceIn(0f, 1f)
-    val headDeg = 360f * headFraction.coerceIn(0f, 1f)
+    val span = totalAngleDeg.coerceIn(0f, 360f)
+    val sweepDeg = startAngleDeg + span * sweepFraction.coerceIn(0f, 1f)
+    val headDeg = startAngleDeg + span * headFraction.coerceIn(0f, 1f)
     return buildList {
-        if (sweepDeg > 0.5f) addAll(arcSegments(center, radius, 0f, sweepDeg, r, color) { 1f })
+        if (sweepDeg - startAngleDeg > 0.5f) addAll(arcSegments(center, radius, startAngleDeg, sweepDeg, r, color) { 1f })
         if (headDeg - sweepDeg > 0.5f) {
             val arcLength = radius * (headDeg - sweepDeg) * DEG_TO_RAD
             val stretch = (arcLength / (stroke * 3f)).coerceIn(0f, 1f)

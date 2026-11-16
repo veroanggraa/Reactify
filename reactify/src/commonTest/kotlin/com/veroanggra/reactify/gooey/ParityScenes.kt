@@ -8,6 +8,7 @@ import com.veroanggra.reactify.chip.GooeyChipGroupState
 import com.veroanggra.reactify.control.sliderBlobs
 import com.veroanggra.reactify.fab.fabMenuBlobs
 import com.veroanggra.reactify.list.dropZoneBlobs
+import com.veroanggra.reactify.progress.circularProgressBlobs
 import com.veroanggra.reactify.progress.linearProgressBlobs
 import com.veroanggra.reactify.refresh.pullBlobs
 import com.veroanggra.reactify.stepper.stepperBlobs
@@ -82,6 +83,23 @@ internal object ParityScenes {
     fun progressNeckScene() = GooeyScene(
         blobs = linearProgressBlobs(Rect(40f, 280f, 360f, 320f), fillFraction = 0.3f, headFraction = 0.7f, color = Color.White),
         smoothness = 20f, // 48f swallows the 16px-thick neck
+    )
+
+    fun circularProgressScene() = GooeyScene(
+        blobs = circularProgressBlobs(
+            center = Offset(200f, 200f), radius = 80f, stroke = 16f,
+            sweepFraction = 0.35f, headFraction = 0.65f, color = Color.White,
+        ),
+        smoothness = 20f, // 48f swallows the 16px-thick neck, same as progressNeckScene
+    )
+
+    fun gaugeScene() = GooeyScene(
+        blobs = circularProgressBlobs(
+            center = Offset(200f, 200f), radius = 80f, stroke = 16f,
+            sweepFraction = 0.6f, headFraction = 0.9f, color = Color.White,
+            startAngleDeg = 225f, totalAngleDeg = 270f,
+        ),
+        smoothness = 20f, // same budget as circularProgressScene for a 16px-thick neck
     )
 
     fun stepperScene() = GooeyScene(

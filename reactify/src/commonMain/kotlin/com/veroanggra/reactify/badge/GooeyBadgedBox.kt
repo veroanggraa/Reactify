@@ -61,7 +61,7 @@ public fun GooeyBadgedBox(
             Box(
                 Modifier
                     .align(Alignment.TopEnd)
-                    .offset(x = badgeRadius * 0.4f, y = -badgeRadius * 0.4f)
+                    .offset(x = badgeRadius * 0.1f, y = -badgeRadius * 0.1f)
                     .size(badgeRadius * 2f)
                     .graphicsLayer { alpha = grow; scaleX = grow; scaleY = grow },
                 contentAlignment = Alignment.Center,

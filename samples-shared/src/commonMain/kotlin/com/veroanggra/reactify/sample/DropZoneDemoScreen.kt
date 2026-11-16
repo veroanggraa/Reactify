@@ -3,11 +3,9 @@ package com.veroanggra.reactify.sample
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +22,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,44 +45,60 @@ fun DropZoneDemoScreen(
     var tokenOffset by remember { mutableStateOf(Offset.Zero) }
     val density = LocalDensity.current
 
-    Box(modifier.fillMaxSize().background(Color.Black).systemBarsPadding().padding(24.dp)) {
-        Text("Drag the dot into the zone", color = Color.White, fontSize = 13.sp)
+    DemoScaffold(
+        title = "Drop Zone",
+        subtitle = "Drag the dot in — the zone reaches for it as it gets close.",
+        accent = ZoneSky,
+        modifier = modifier,
+    ) {
+        Box(Modifier.weight(1f).fillMaxWidth()) {
+            GooeyDropZone(
+                state = state,
+                color = ZoneSky,
+                renderer = renderer,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .size(220.dp, 180.dp),
+            )
 
-        GooeyDropZone(
-            state = state,
-            color = ZoneSky,
-            renderer = renderer,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .size(220.dp, 180.dp),
-        )
+            Box(
+                Modifier.align(Alignment.BottomEnd).size(220.dp, 180.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    if (state.isHovering) "Release!" else "Drop here",
+                    color = Color.Black,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Medium,
+                )
+            }
 
-        Box(
-            Modifier
-                .align(Alignment.TopStart)
-                .offset(y = 48.dp)
-                .offset { IntOffset(tokenOffset.x.roundToInt(), tokenOffset.y.roundToInt()) }
-                .size(44.dp)
-                .clip(CircleShape)
-                .background(TokenMint)
-                .onGloballyPositioned { tokenRoot = it.positionInRoot() - tokenOffset }
-                .pointerInput(Unit) {
-                    detectDragGestures(
-                        onDragEnd = {
-                            tokenOffset = Offset.Zero
-                            state.updateDrag(null)
-                        },
-                        onDragCancel = {
-                            tokenOffset = Offset.Zero
-                            state.updateDrag(null)
-                        },
-                    ) { change, delta ->
-                        change.consume()
-                        tokenOffset += delta
-                        val radius = with(density) { 22.dp.toPx() }
-                        state.updateDrag(tokenRoot + tokenOffset + Offset(radius, radius))
-                    }
-                },
-        )
+            Box(
+                Modifier
+                    .align(Alignment.TopStart)
+                    .offset { IntOffset(tokenOffset.x.roundToInt(), tokenOffset.y.roundToInt()) }
+                    .size(44.dp)
+                    .clip(CircleShape)
+                    .background(TokenMint)
+                    .onGloballyPositioned { tokenRoot = it.positionInRoot() - tokenOffset }
+                    .pointerInput(Unit) {
+                        detectDragGestures(
+                            onDragEnd = {
+                                tokenOffset = Offset.Zero
+                                state.updateDrag(null)
+                            },
+                            onDragCancel = {
+                                tokenOffset = Offset.Zero
+                                state.updateDrag(null)
+                            },
+                        ) { change, delta ->
+                            change.consume()
+                            tokenOffset += delta
+                            val radius = with(density) { 22.dp.toPx() }
+                            state.updateDrag(tokenRoot + tokenOffset + Offset(radius, radius))
+                        }
+                    },
+            )
+        }
     }
 }

@@ -3,12 +3,9 @@ package com.veroanggra.reactify.sample
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +24,7 @@ import com.veroanggra.reactify.segment.gooeySegmentItem
 import com.veroanggra.reactify.segment.rememberGooeySegmentedControlState
 
 private val periods = listOf("Day", "Week", "Month")
+private val periodLabels = listOf("Daily orders", "Weekly orders", "Monthly orders")
 private val periodStats = listOf("128", "812", "3,204")
 private val AccentMint = Color(0xFFC8F5D4)
 
@@ -36,24 +34,21 @@ fun SegmentedControlDemoScreen(
     renderer: GooeyRenderer = remember { GooeyRenderers.auto() },
 ) {
     val state = rememberGooeySegmentedControlState(selectedIndex = 0)
+    val colors = LocalDemoColors.current
 
-    Column(
-        modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .systemBarsPadding()
-            .padding(24.dp),
+    DemoScaffold(
+        title = "Orders",
+        subtitle = "Switch ranges to see the sliding segment indicator bridge.",
+        accent = AccentMint,
+        modifier = modifier,
     ) {
-        Text("Orders", color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Medium)
-
         GooeySegmentedControlHost(
             state = state,
             color = AccentMint,
             renderer = renderer,
             modifier = Modifier
-                .padding(top = 16.dp)
                 .fillMaxWidth()
-                .background(Color.White.copy(alpha = 0.08f), RoundedCornerShape(percent = 50))
+                .background(colors.surface, RoundedCornerShape(percent = 50))
                 .padding(4.dp),
         ) {
             Row(Modifier.fillMaxWidth()) {
@@ -68,18 +63,20 @@ fun SegmentedControlDemoScreen(
                             .padding(vertical = 10.dp),
                         contentAlignment = Alignment.Center,
                     ) {
-                        Text(label, color = if (isSelected) Color.Black else Color.White, fontSize = 13.sp)
+                        Text(label, color = if (isSelected) Color.Black else colors.onBackground, fontSize = 13.sp)
                     }
                 }
             }
         }
 
-        Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+        DemoCard(modifier = Modifier.padding(top = 20.dp)) {
+            DemoSectionLabel(periodLabels[state.selectedIndex])
             Text(
                 periodStats[state.selectedIndex],
-                color = Color.White,
+                color = colors.onBackground,
                 fontSize = 48.sp,
                 fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 8.dp),
             )
         }
     }
