@@ -17,16 +17,26 @@
 
 ## What is this?
 
-Reactify renders a frame as a `GooeyScene`: a list of blobs (round rects, circles, capsules) that
-smoothly merge via a polynomial smooth-min, plus cutouts that smoothly subtract. On top of that
-SDF core it builds three ready-to-use pieces:
+Reactify renders a frame as a `GooeyScene`: a list of blobs (round rects, circles, capsules,
+arbitrary simple polygons) that smoothly merge via a polynomial smooth-min, plus cutouts that
+smoothly subtract. On top of that SDF core it builds a set of ready-to-use components:
 
-- **Transfer**, drag or tap an item in a list and watch a token fly into a card, with a gooey
-  bridge connecting the two while it travels.
-- **Notch shape**, a rounded rect with a concave notch that opens/closes in sync with a transfer
-  target, built from the same distance field.
-- **Sliding indicators**, a liquid pill that bridges between a bottom-nav item or a segmented
-  control option as the selection changes.
+| Component | What it does | Docs |
+| --- | --- | --- |
+| **Transfer** | Drag or tap an item in a list and watch a token fly into a card, with a gooey bridge connecting the two while it travels. | [transfer.md](docs/transfer.md) |
+| **Notch Shape** | A rounded rect with a concave notch that opens/closes in sync with a Transfer target. | [transfer.md](docs/transfer.md) |
+| **Bottom Nav Indicator** | A liquid pill that bridges between bottom-nav items as the selection changes. | [nav-indicator.md](docs/nav-indicator.md) |
+| **Segmented Control** | The same liquid-pill behavior for a segmented control. | [segmented-control.md](docs/segmented-control.md) |
+| **Progress Indicator** | Determinate/indeterminate liquid bars and rings; the ring can open into a gauge/dial. | [progress.md](docs/progress.md) |
+| **Stepper** | A liquid dot that bridges between steps as progress advances. | [stepper.md](docs/stepper.md) |
+| **Pull to Refresh** | A drop pulled out of the top edge on a thinning neck. | [pull-to-refresh.md](docs/pull-to-refresh.md) |
+| **Switch & Slider** | A thumb that bulges its track into one liquid pill; the slider's thumb pulls a value bubble up while dragged. | [switch-slider.md](docs/switch-slider.md) |
+| **Badge** | A badge that pops out of a corner on a short stem instead of appearing out of nowhere. | [badge.md](docs/badge.md) |
+| **Chip Group** | Multi-select chips that bridge automatically when two selected ones sit close together. | [chip-group.md](docs/chip-group.md) |
+| **Drop Zone** | A drop target that reaches a tendril towards an external drag point. | [drop-zone.md](docs/drop-zone.md) |
+| **FAB Speed-dial** | A FAB that spawns child actions up a column, each still joined by a thinning neck. | [fab-speed-dial.md](docs/fab-speed-dial.md) |
+| **FAB Cutout** | A `BottomAppBar`-style shape with a smooth concave cutout around a docked FAB. | [fab-cutout.md](docs/fab-cutout.md) |
+| **Polygon** | `Blob.Polygon` — an arbitrary simple polygon (convex or concave) that merges into a scene like any other blob. A primitive, not a ready-made widget. | [polygon.md](docs/polygon.md) |
 
 Rendering is pluggable: AGSL (`RuntimeShader`) on Android API 33+, SkSL via Skiko on iOS, or a
 CPU path-tracing fallback everywhere else, pick automatically with `GooeyRenderers.auto()`.
@@ -47,7 +57,7 @@ CPU path-tracing fallback everywhere else, pick automatically with `GooeyRendere
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("io.github.veroanggraa:reactify:0.1.0-alpha01")
+            implementation("io.github.veroanggraa:reactify:0.2.0-alpha01")
         }
     }
 }
@@ -56,13 +66,16 @@ kotlin {
 ```kotlin
 // Android only
 dependencies {
-    implementation("io.github.veroanggraa:reactify:0.1.0-alpha01")
+    implementation("io.github.veroanggraa:reactify:0.2.0-alpha01")
 }
 ```
 
 Supported targets: `android`, `iosArm64`, `iosSimulatorArm64`, `iosX64`.
 
 ## How to Use
+
+A few components to get a feel for the API below; every component in the table above has its own
+quick-start snippet and parameter reference in [the full docs](https://veroanggraa.github.io/Reactify).
 
 ### Transfer: list item → card
 
