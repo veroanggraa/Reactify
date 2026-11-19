@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "io.github.veroanggraa"
-version = "0.1.0-alpha01"
+version = "0.2.0-alpha01"
 
 kotlin {
     explicitApi()

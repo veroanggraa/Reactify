@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0-alpha01] - 2026-11-19
+
 ### Added
 
 - **Progress indicators** — `GooeyLinearProgress`, `GooeyCircularProgress`: determinate and
@@ -74,4 +76,5 @@ Initial release.
 - Sample app (`app` for Android, `iosApp` for iOS) demoing an invite-friends list, bottom-nav
   indicator, and segmented control.
 
+[0.2.0-alpha01]: https://github.com/veroanggraa/Reactify/releases/tag/v0.2.0-alpha01
 [0.1.0-alpha01]: https://github.com/veroanggraa/Reactify/releases/tag/v0.1.0-alpha01
