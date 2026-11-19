@@ -32,7 +32,22 @@ public sealed interface Blob {
         val radius: Float,
         override val color: Color,
     ) : Blob
+
+    /**
+     * An arbitrary simple polygon (no self-intersections), exact rather than approximated from
+     * circles/round rects. At most one `Polygon` per [GooeyScene] is merged by the AGSL and SkSL
+     * renderers (and at most [MAX_POLYGON_VERTICES] vertices); [PathGooeyRenderer] and the CPU
+     * [GooeyField] reference have no such limit.
+     */
+    @Immutable
+    public data class Polygon(
+        val vertices: List<Offset>,
+        override val color: Color,
+    ) : Blob
 }
+
+/** Hard cap on vertices per [Blob.Polygon] shared by the AGSL and SkSL renderers. */
+public const val MAX_POLYGON_VERTICES: Int = 8
 
 internal fun Blob.bounds(): Rect = when (this) {
     is Blob.RoundRect -> rect
@@ -43,6 +58,19 @@ internal fun Blob.bounds(): Rect = when (this) {
         maxOf(start.x, end.x) + radius,
         maxOf(start.y, end.y) + radius,
     )
+    is Blob.Polygon -> {
+        var left = Float.POSITIVE_INFINITY
+        var top = Float.POSITIVE_INFINITY
+        var right = Float.NEGATIVE_INFINITY
+        var bottom = Float.NEGATIVE_INFINITY
+        vertices.forEach {
+            left = minOf(left, it.x)
+            top = minOf(top, it.y)
+            right = maxOf(right, it.x)
+            bottom = maxOf(bottom, it.y)
+        }
+        Rect(left, top, right, bottom)
+    }
 }
 
 /**

@@ -6,12 +6,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -39,68 +37,69 @@ fun StepperDemoScreen(
     renderer: GooeyRenderer = remember { GooeyRenderers.auto() },
 ) {
     val state = rememberGooeyStepperState(currentStep = 0)
+    val colors = LocalDemoColors.current
 
-    Column(
-        modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .systemBarsPadding()
-            .padding(24.dp),
+    DemoScaffold(
+        title = "Checkout",
+        subtitle = "A step indicator that bridges forward as you move along.",
+        accent = AccentPeach,
+        modifier = modifier,
     ) {
-        Text("Checkout", color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Medium)
-        Spacer(Modifier.height(160.dp))
-
-        GooeyStepperHost(
-            state = state,
-            color = AccentPeach,
-            renderer = renderer,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                stepLabels.forEachIndexed { index, label ->
-                    val reached = index <= state.currentStep
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Box(
-                            Modifier
-                                .size(28.dp)
-                                .gooeyStep(state, index)
-                                .background(Color.White.copy(alpha = 0.12f), CircleShape),
-                            contentAlignment = Alignment.Center,
-                        ) {
+        DemoCard {
+            GooeyStepperHost(
+                state = state,
+                color = AccentPeach,
+                renderer = renderer,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    stepLabels.forEachIndexed { index, label ->
+                        val reached = index <= state.currentStep
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Box(
+                                Modifier
+                                    .size(28.dp)
+                                    .gooeyStep(state, index)
+                                    .background(colors.neutralChip, CircleShape),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Text(
+                                    "${index + 1}",
+                                    color = if (reached) Color.Black else colors.onBackground,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Medium,
+                                )
+                            }
                             Text(
-                                "${index + 1}",
-                                color = if (reached) Color.Black else Color.White,
+                                label,
+                                color = if (reached) colors.onBackground else colors.onBackgroundMuted,
                                 fontSize = 12.sp,
-                                fontWeight = FontWeight.Medium,
+                                modifier = Modifier.padding(top = 8.dp),
                             )
                         }
-                        Text(
-                            label,
-                            color = if (reached) Color.White else Color.White.copy(alpha = 0.5f),
-                            fontSize = 12.sp,
-                            modifier = Modifier.padding(top = 8.dp),
-                        )
                     }
                 }
             }
-        }
 
-        Row(
-            Modifier.fillMaxWidth().padding(top = 40.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            Button(
-                onClick = { state.previous() },
-                enabled = state.currentStep > 0,
-                modifier = Modifier.weight(1f),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.White.copy(alpha = 0.12f), contentColor = Color.White),
-            ) { Text("Previous") }
-            Button(
-                onClick = { state.next() },
-                enabled = state.currentStep < stepLabels.lastIndex,
-                modifier = Modifier.weight(1f),
-                colors = ButtonDefaults.buttonColors(containerColor = AccentPeach, contentColor = Color.Black),
-            ) { Text("Next") }
+            Spacer(Modifier.height(32.dp))
+
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                Button(
+                    onClick = { state.previous() },
+                    enabled = state.currentStep > 0,
+                    modifier = Modifier.weight(1f),
+                    colors = ButtonDefaults.buttonColors(containerColor = colors.neutralChip, contentColor = colors.onBackground),
+                ) { Text("Previous") }
+                Button(
+                    onClick = { state.next() },
+                    enabled = state.currentStep < stepLabels.lastIndex,
+                    modifier = Modifier.weight(1f),
+                    colors = ButtonDefaults.buttonColors(containerColor = AccentPeach, contentColor = Color.Black),
+                ) { Text("Next") }
+            }
         }
     }
 }

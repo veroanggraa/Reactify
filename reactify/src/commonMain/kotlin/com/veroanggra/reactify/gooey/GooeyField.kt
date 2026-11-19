@@ -1,5 +1,6 @@
 package com.veroanggra.reactify.gooey
 
+import androidx.compose.ui.geometry.Offset
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -10,8 +11,9 @@ import kotlin.math.sqrt
  * removed with smooth-subtraction. Keep the maths in sync with the shader in [AgslGooeyRenderer].
  */
 internal class GooeyField(blobs: List<Blob>, cutouts: List<Blob>, smoothness: Float) {
-    private val blobParams = pack(blobs)
-    private val cutParams = pack(cutouts)
+    private val blobParams = pack(blobs.filter { it !is Blob.Polygon })
+    private val cutParams = pack(cutouts.filter { it !is Blob.Polygon })
+    private val polygons = blobs.filterIsInstance<Blob.Polygon>().map { it.vertices.toFloatArray() }
     private val k = max(smoothness, 0.001f)
 
     fun distance(x: Float, y: Float): Float {
@@ -22,6 +24,11 @@ internal class GooeyField(blobs: List<Blob>, cutouts: List<Blob>, smoothness: Fl
             val h = (0.5f + 0.5f * (di - d) / k).coerceIn(0f, 1f)
             d = di + (d - di) * h - k * h * (1f - h)
             i += STRIDE
+        }
+        for (verts in polygons) {
+            val di = sdPolygon(x, y, verts)
+            val h = (0.5f + 0.5f * (di - d) / k).coerceIn(0f, 1f)
+            d = di + (d - di) * h - k * h * (1f - h)
         }
         i = 0
         while (i < cutParams.size) {
@@ -37,6 +44,15 @@ internal class GooeyField(blobs: List<Blob>, cutouts: List<Blob>, smoothness: Fl
         const val STRIDE = 6
         const val TYPE_BOX = 0f
         const val TYPE_CAPSULE = 1f
+
+        fun List<Offset>.toFloatArray(): FloatArray {
+            val out = FloatArray(size * 2)
+            forEachIndexed { index, offset ->
+                out[index * 2] = offset.x
+                out[index * 2 + 1] = offset.y
+            }
+            return out
+        }
 
         fun pack(blobs: List<Blob>): FloatArray {
             val out = FloatArray(blobs.size * STRIDE)
@@ -67,9 +83,44 @@ internal class GooeyField(blobs: List<Blob>, cutouts: List<Blob>, smoothness: Fl
                         out[o + 4] = blob.end.y
                         out[o + 5] = blob.radius
                     }
+                    is Blob.Polygon -> error("Polygon blobs are packed separately")
                 }
             }
             return out
+        }
+
+        /**
+         * Signed distance to the polygon [verts] ([x0, y0, x1, y1, ...]): closest distance to any
+         * edge, sign flipped by a crossing-number winding test. Faithful port of Inigo Quilez's
+         * `sdPolygon` (https://iquilezles.org/articles/distfunctions2d/) — kept byte-for-byte
+         * equivalent to the AGSL/SkSL versions rather than restructured, so all three agree exactly.
+         */
+        fun sdPolygon(x: Float, y: Float, verts: FloatArray): Float {
+            val n = verts.size / 2
+            var d = (x - verts[0]) * (x - verts[0]) + (y - verts[1]) * (y - verts[1])
+            var s = 1f
+            var j = n - 1
+            for (i in 0 until n) {
+                val vix = verts[i * 2]
+                val viy = verts[i * 2 + 1]
+                val vjx = verts[j * 2]
+                val vjy = verts[j * 2 + 1]
+                val ex = vjx - vix
+                val ey = vjy - viy
+                val wx = x - vix
+                val wy = y - viy
+                val denom = ex * ex + ey * ey
+                val t = if (denom <= 1e-9f) 0f else ((wx * ex + wy * ey) / denom).coerceIn(0f, 1f)
+                val bx = wx - ex * t
+                val by = wy - ey * t
+                d = min(d, bx * bx + by * by)
+                val c1 = y >= viy
+                val c2 = y < vjy
+                val c3 = ex * wy > ey * wx
+                if ((c1 && c2 && c3) || (!c1 && !c2 && !c3)) s = -s
+                j = i
+            }
+            return s * sqrt(d)
         }
 
         fun sdBlob(x: Float, y: Float, p: FloatArray, o: Int): Float =

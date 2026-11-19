@@ -44,6 +44,18 @@ GooeyCircularProgress(progress = progress, color = Color(0xFFC8F5D4))
 GooeyCircularProgress(color = Color(0xFFC4E4F7))
 ```
 
+`GooeyCircularProgress`'s determinate overload can also open into a gauge/dial instead of a full
+ring — pass `startAngleDeg`/`totalAngleDeg` (both clockwise from 12 o'clock):
+
+```kotlin
+GooeyCircularProgress(
+    progress = progress,
+    color = Color(0xFFC8F5D4),
+    startAngleDeg = 225f,
+    totalAngleDeg = 270f, // classic dial: a 90° gap at the bottom
+)
+```
+
 There is no state object to create: pass the value in, and every change animates from wherever
 the indicator currently is — tapping "Next chunk" twice quickly retargets mid-flight instead of
 queueing.
@@ -90,6 +102,8 @@ queueing.
 | `strokeWidth` | `6.dp` | Ring thickness; the head is 1.25× as wide. |
 | `trackColor` | `color.copy(alpha = 0.15f)` | Plain ring drawn under the liquid. |
 | `smoothness` | `10.dp` | Blend distance. |
+| `startAngleDeg` | `0f` | Where the ring starts, clockwise from 12 o'clock. Determinate overload only. |
+| `totalAngleDeg` | `360f` | How much of the circle the ring spans. Less than 360 opens a gauge/dial gap; the track is drawn as a matching open arc. Determinate overload only. |
 | `renderer` | `GooeyRenderers.auto()` | See [Choosing a Renderer](renderers.md). |
 
 **`GooeyProgressDefaults`** exposes `headSpec` and `fillSpec` for reference; to change the feel,

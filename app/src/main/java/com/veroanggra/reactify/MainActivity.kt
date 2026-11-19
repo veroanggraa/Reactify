@@ -24,6 +24,13 @@ class MainActivity : ComponentActivity() {
             "progress" -> Demo.Progress
             "stepper" -> Demo.Stepper
             "refresh" -> Demo.PullToRefresh
+            "control" -> Demo.Control
+            "badge" -> Demo.Badge
+            "chip" -> Demo.ChipGroup
+            "cutout" -> Demo.Cutout
+            "dropzone" -> Demo.DropZone
+            "fab" -> Demo.FabMenu
+            "polygon" -> Demo.Polygon
             else -> Demo.List
         }
         setContent {
